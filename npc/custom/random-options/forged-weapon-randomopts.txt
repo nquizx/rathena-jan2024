@@ -1,0 +1,109 @@
+-	script	forged_weapon_enchanter	-1,{
+	callfunc "forged_weapon_enchant","[ ^0000FFForged Weapon Enchanter^000000 ]";
+	close;
+}
+
+function	script	forged_weapon_enchant	{
+	disable_items;
+	.@npc_name$ = getarg(0);
+	.@required_item = 88888;
+	.@required_amount = 10;
+
+	// Enable for equipped weapon only
+	if (!getequipisequiped(EQI_HAND_R)) {
+		mes .@npc_name$;
+		mes "- Vui loÌng mang vuÞ khiì (tay phaÒi/2 tay) trýõìc khi tiêìp tuòc -";
+		close;
+	}
+
+	// Enable for forged weapon only
+	if (getequipcardid(EQI_HAND_R, 0) != CARD0_FORGE) {
+		mes .@npc_name$;
+		mes "- Tiình nãng naÌy chiÒ khaÒ duòng cho Weapon chêì taòo týÌ Blacksmith job -";
+		close;
+	}
+
+	// Enable for Weapon Level 3 only
+	if (getequipweaponlv(EQI_HAND_R) != 3) {
+		mes .@npc_name$;
+		mes "- Tiình nãng naÌy chiÒ khaÒ duòng cho Weapon Level 3 -";
+		close;
+	}
+
+	// Don't allow re-roll options
+	if (callfunc("is_having_randomopt")) {
+		mes .@npc_name$;
+		mes "- V? khí này ð? ðý?c enchant options -";
+		close;
+	}
+
+	// Check item requirements
+	if (countitem(.@required_item) < .@required_amount) {
+		mes .@npc_name$;
+		mes "- Vui loÌng mang theo ð? v?t ph?m ðêÒ enchant -";
+		mes "- " + countitem(.@required_item) + " / " + .@required_amount + " " + mesitemlink(.@required_item, false);
+		close;
+	}
+
+	// Get Equipped Weapon ID
+	.@equip_id = getequipid(EQI_HAND_R);
+
+	// Read weapon card slots information
+	for ( .@i = 0; .@i <= 3; .@i ++ ) {
+		setarray .@card_slots[.@i],getequipcardid(EQI_HAND_R, .@i);
+	}
+
+	// Forged weapon character id is getting from MAKEDWORD function and using as
+	// LOWWORD | HIGHWORD << 16
+	.@bs_charid = .@card_slots[2] | .@card_slots[3] << 16;
+
+	// Default random opt group ID for unranked weapon is 219
+	randomoptgroup(219);
+	.@bs_isranked = callfunc("is_ranked_bs",.@bs_charid);
+
+	if (.@bs_isranked) {
+		// Change to random opt grop 220 if forger is ranked BS
+		randomoptgroup(220);
+	}
+
+	mes .@npc_name$;
+	mes "Vui l?ng xác nh?n là b?n mu?n enchant v? khí này?";
+	if (select("Xác nh?n:Hu?") != 1) {
+		close;
+	}
+
+	progressbar "ffff00",1;
+	specialeffect EF_REPAIRWEAPON;
+	delitem .@equip_id,1;
+	delitem .@required_item,.@required_amount;
+	getitem3 .@equip_id,1,1,0,0,.@card_slots[0],.@card_slots[1],.@card_slots[2],.@card_slots[3],.@opt_id,.@opt_value,.@opt_param;
+}
+
+function	script	is_ranked_bs	{
+	.@bs_charid = getarg(0);
+
+	.@nb = query_sql("SELECT char_id, fame FROM `char` WHERE class=10 ORDER BY fame DESC LIMIT 10", .@char_ids, .@fames);
+	for (.@i = 0; .@i < 10; .@i++) {
+		if (.@bs_charid == .@char_ids[.@i]) {
+			return 1;
+		}
+	}
+
+	.@nb = query_sql("SELECT char_id, fame, class FROM `char` WHERE char_id=" + escape_sql(.@bs_charid), .@char_ids, .@fames, .@classes);
+	if (.@classes[0] == 10 && .@fames[0] >= 1000) {
+		return 1;
+	}
+
+	return 0;
+}
+
+function	script	is_having_randomopt	{
+	for (.@i = 0; .@i < MAX_ITEM_RDM_OPT - 1; .@i ++) {
+		if (getequiprandomoption(EQI_HAND_R, .@i, ROA_ID) != -1) {
+			return 1;
+		}
+	}
+	return 0;
+}
+
+// moc_para01,43,23,4	duplicate(forged_weapon_enchanter)	Weapon Enchanter#WeaponEnchantNPC	84
