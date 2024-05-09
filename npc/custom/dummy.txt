@@ -1,0 +1,11 @@
+-	script	Punching Bag	-1,{
+
+OnInit:
+  monster "prontera",162,176,"Punching Bag",1905,1,"Punching Bag::OnDummyKill";
+  setmapflag( "prontera",mf_monster_noteleport );
+end;
+
+OnDummyKill:
+  monster "prontera",162,176,"Punching Bag",1905,1,"Punching Bag::OnDummyKill";
+end;
+}

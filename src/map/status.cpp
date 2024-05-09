@@ -7260,6 +7260,8 @@ static unsigned short status_calc_matk(struct block_list *bl, status_change *sc,
 		return cap_value(matk,0,USHRT_MAX);
 #ifndef RENEWAL
 	/// Take note fixed value first before % modifiers [PRE-RENEWAL]
+	if (sc->getSCE(SC_IMPOSITIO))
+		matk += sc->getSCE(SC_IMPOSITIO)->val2;
 	if (sc->getSCE(SC_MATKPOTION))
 		matk += sc->getSCE(SC_MATKPOTION)->val1;
 	if (sc->getSCE(SC_MATKFOOD))

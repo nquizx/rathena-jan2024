@@ -345,7 +345,7 @@ enum emotion_type {
 	ET_MAX
 };
 
-enum clr_type : uint8_t 
+enum clr_type : uint8_t
 {
 	CLR_OUTSIGHT = 0,
 	CLR_DEAD,
@@ -354,7 +354,7 @@ enum clr_type : uint8_t
 	CLR_TRICKDEAD,
 };
 
-enum map_property : uint8_t 
+enum map_property : uint8_t
 {// clif_map_property
 	MAPPROPERTY_NOTHING       = 0,
 	MAPPROPERTY_FREEPVPZONE   = 1,
@@ -365,7 +365,7 @@ enum map_property : uint8_t
 	MAPPROPERTY_DENYSKILLZONE = 6,
 };
 
-enum map_type : uint8_t 
+enum map_type : uint8_t
 {// clif_map_type
 	MAPTYPE_VILLAGE              = 0,
 	MAPTYPE_VILLAGE_IN           = 1,
@@ -394,7 +394,7 @@ enum map_type : uint8_t
 	MAPTYPE_UNUSED               = 29,
 };
 
-enum useskill_fail_cause : uint8_t 
+enum useskill_fail_cause : uint8_t
 {// clif_skill_fail
 	USESKILL_FAIL_LEVEL = 0,
 	USESKILL_FAIL_SP_INSUFFICIENT = 1,
@@ -1252,6 +1252,7 @@ void clif_macro_reporter_status(map_session_data &sd, e_macro_report_status styp
 
 void clif_dynamicnpc_result( map_session_data& sd, e_dynamicnpc_result result );
 
+void clif_sendembryo(struct map_session_data* sd);
 void clif_set_dialog_align(map_session_data& sd, int npcid, e_say_dialog_align align);
 void clif_set_npc_window_size(map_session_data& sd, int width, int height);
 void clif_set_npc_window_pos(map_session_data& sd, int x, int y);

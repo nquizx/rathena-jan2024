@@ -50,6 +50,8 @@ Body:
       - Name: NV_TRICKDEAD
         MaxLevel: 1
         Exclude: true
+      - Name: NV_TAP
+        MaxLevel: 1
       - Name: WE_CALLBABY
         MaxLevel: 1
   - Job: Swordman
@@ -273,6 +275,8 @@ Body:
             Level: 1
       - Name: MC_CARTDECORATE
         MaxLevel: 1
+      - Name: BS_UNFAIRLYTRICK
+        MaxLevel: 1
   - Job: Thief
     Inherit:
       Novice: true
@@ -467,6 +471,16 @@ Body:
             Level: 3
       - Name: PR_REDEMPTIO
         MaxLevel: 1
+      - Name: AB_CLEMENTIA
+        MaxLevel: 3
+        Requires:
+          - Name: AL_BLESSING
+            Level: 10
+      - Name: AB_CANTO
+        MaxLevel: 3
+        Requires:
+          - Name: AL_INCAGI
+            Level: 10
   - Job: Wizard
     Inherit:
       Novice: true
@@ -559,6 +573,8 @@ Body:
     Tree:
       - Name: BS_IRON
         MaxLevel: 5
+      - Name: BS_CARTEFFICIENCY
+        MaxLevel: 1
       - Name: BS_STEEL
         MaxLevel: 5
         Requires:
@@ -653,8 +669,8 @@ Body:
             Level: 3
           - Name: BS_OVERTHRUST
             Level: 2
-      - Name: BS_UNFAIRLYTRICK
-        MaxLevel: 1
+      # - Name: BS_UNFAIRLYTRICK
+      #   MaxLevel: 1
       - Name: BS_GREED
         MaxLevel: 1
       - Name: BS_ADRENALINE2
@@ -1244,6 +1260,11 @@ Body:
             Level: 5
       - Name: RG_CLOSECONFINE
         MaxLevel: 1
+      - Name: ST_PRESERVE
+        MaxLevel: 1
+        Requires:
+          - Name: RG_PLAGIARISM
+            Level: 10
   - Job: Alchemist
     Inherit:
       Novice: true
@@ -1251,6 +1272,8 @@ Body:
     Tree:
       - Name: AM_AXEMASTERY
         MaxLevel: 10
+      - Name: AM_ALCHEMYEFFICIENCY
+        MaxLevel: 3
       - Name: AM_LEARNINGPOTION
         MaxLevel: 10
       - Name: AM_PHARMACY
@@ -1337,11 +1360,28 @@ Body:
         Requires:
           - Name: AM_PHARMACY
             Level: 10
+      - Name: AM_TWILIGHT4
+        MaxLevel: 1
+        Requires:
+          - Name: AM_PHARMACY
+            Level: 10
+      - Name: AM_TWILIGHT5
+        MaxLevel: 1
+        Requires:
+          - Name: AM_PHARMACY
+            Level: 10
+      - Name: AM_TWILIGHT6
+        MaxLevel: 1
+        Requires:
+          - Name: AM_PHARMACY
+            Level: 10
      # - Name: AM_TWILIGHT4
        # MaxLevel: 1
        # Requires:
          # - Name: AM_PHARMACY
            # Level: 10
+      - Name: BS_GREED
+        MaxLevel: 1
   - Job: Bard
     Inherit:
       Novice: true

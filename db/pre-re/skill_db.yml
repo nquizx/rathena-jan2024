@@ -1346,7 +1346,7 @@ Body:
     Requires:
       SpCost:
         - Level: 1
-          Amount: 10
+          Amount: 5
         - Level: 2
           Amount: 9
   - Id: 27
@@ -1942,6 +1942,8 @@ Body:
   - Id: 48
     Name: TF_DOUBLE
     Description: Double Attack
+    DamageFlags:
+      Critical: true
     MaxLevel: 10
     Type: Weapon
     Range: -1
@@ -2110,9 +2112,9 @@ Body:
     ActiveInstance: 5
     Knockback: 2
     CastTime: 700
-    Duration1: 1000
+    # Duration1: 1000
     Requires:
-      SpCost: 12
+      SpCost: 20
       Weapon:
         1hSpear: true
         2hSpear: true
@@ -2281,8 +2283,8 @@ Body:
     Flags:
       TargetTrap: true
     Range: -2
-    Hit: Single
-    HitCount: 1
+    Hit: Multi_Hit
+    HitCount: 2
     Element: Weapon
     SplashArea: 1
     Knockback: 1
@@ -2333,14 +2335,14 @@ Body:
     Description: Impositio Manus
     MaxLevel: 5
     Type: Magic
-    TargetType: Support
+    TargetType: Self
     DamageFlags:
       NoDamage: true
     Range: 9
     Hit: Single
     HitCount: 1
     CastCancel: true
-    AfterCastActDelay: 3000
+    # AfterCastActDelay: 3000
     Duration1: 60000
     Requires:
       SpCost:
@@ -2402,15 +2404,15 @@ Body:
     AfterCastActDelay: 2000
     Duration1:
       - Level: 1
-        Time: 60000
-      - Level: 2
-        Time: 90000
-      - Level: 3
         Time: 120000
+      - Level: 2
+        Time: 240000
+      - Level: 3
+        Time: 360000
       - Level: 4
-        Time: 150000
+        Time: 480000
       - Level: 5
-        Time: 180000
+        Time: 600000
     Requires:
       SpCost:
         - Level: 1
@@ -2809,8 +2811,8 @@ Body:
         Plagiarism: true
         Reproduce: true
     CastCancel: true
-    CastTime: 15000
-    AfterCastActDelay: 4000
+    CastTime: 10000
+    AfterCastActDelay: 2000
     Duration1:
       - Level: 1
         Time: 5000
@@ -3326,7 +3328,7 @@ Body:
       - Level: 10
         Time: 10500
     AfterCastActDelay: 5000
-    Duration1: 4000
+    Duration1: 1000
     Duration2: 30000
     Requires:
       SpCost:
@@ -3963,15 +3965,15 @@ Body:
     SplashArea: -1
     Duration1:
       - Level: 1
-        Time: 30000
+        Time: 220000
       - Level: 2
-        Time: 60000
+        Time: 240000
       - Level: 3
-        Time: 90000
+        Time: 260000
       - Level: 4
-        Time: 120000
+        Time: 280000
       - Level: 5
-        Time: 150000
+        Time: 300000
     Requires:
       SpCost:
         - Level: 1
@@ -4005,15 +4007,15 @@ Body:
     SplashArea: -1
     Duration1:
       - Level: 1
-        Time: 10000
+        Time: 220000
       - Level: 2
-        Time: 20000
+        Time: 240000
       - Level: 3
-        Time: 30000
+        Time: 260000
       - Level: 4
-        Time: 40000
+        Time: 280000
       - Level: 5
-        Time: 50000
+        Time: 300000
     Requires:
       SpCost:
         - Level: 1
@@ -4043,15 +4045,15 @@ Body:
     SplashArea: -1
     Duration1:
       - Level: 1
-        Time: 20000
+        Time: 220000
       - Level: 2
-        Time: 40000
+        Time: 240000
       - Level: 3
-        Time: 60000
+        Time: 260000
       - Level: 4
-        Time: 80000
+        Time: 280000
       - Level: 5
-        Time: 100000
+        Time: 300000
     Requires:
       SpCost:
         - Level: 1
@@ -4403,7 +4405,7 @@ Body:
     Name: HT_FREEZINGTRAP
     Description: Freezing Trap
     MaxLevel: 5
-    Type: Weapon
+    Type: Misc
     TargetType: Ground
     DamageFlags:
       Splash: true
@@ -4548,7 +4550,7 @@ Body:
       SpCost: 15
       ItemCost:
         - Item: Booby_Trap
-          Amount: 2
+          Amount: 1
     Unit:
       Id: Claymoretrap
       Range: 1
@@ -4769,10 +4771,11 @@ Body:
     HitCount: -8
     Element: Weapon
     AfterCastActDelay: 2000
-    AfterCastWalkDelay: 2000
+    # AfterCastWalkDelay: 2000
     Duration2: 5000
     CastDelayFlags:
       IgnoreStatus: true
+      IgnoreItemBonus: true
     Requires:
       SpCost:
         - Level: 1
@@ -6076,7 +6079,7 @@ Body:
     DamageFlags:
       IgnoreFlee: true
     Flags:
-      AllowWhenHidden: true
+      AllowWhenHidden: false
     Range: -1
     Hit: Single
     HitCount: 1
@@ -6085,9 +6088,9 @@ Body:
       Skill:
         Plagiarism: true
         Reproduce: true
-    AfterCastActDelay: 500
+    # AfterCastActDelay: 500
     Requires:
-      SpCost: 16
+      SpCost: 10
     Status: Stun
   - Id: 213
     Name: RG_TUNNELDRIVE
@@ -6420,12 +6423,12 @@ Body:
     Type: Weapon
     TargetType: Attack
     DamageFlags:
-      IgnoreAtkCard: true
-      IgnoreDefense: true
-      IgnoreFlee: true
+      IgnoreAtkCard: false
+      IgnoreDefense: false
+      IgnoreFlee: false
     Flags:
-      IgnoreAutoGuard: true
-      IgnoreCicada: true
+      IgnoreAutoGuard: false
+      IgnoreCicada: false
     Range: 9
     Hit: Single
     HitCount: 1
@@ -6448,7 +6451,7 @@ Body:
         Time: 13
     Duration2: 120000
     Requires:
-      SpCost: 15
+      SpCost: 10
       ItemCost:
         - Item: Acid_Bottle
           Amount: 1
@@ -6675,9 +6678,9 @@ Body:
     SplashArea: 1
     Requires:
       SpCost: 10
-      ItemCost:
-        - Item: Germination_Breed
-          Amount: 1
+      # ItemCost:
+      #   - Item: Germination_Breed
+      #     Amount: 1
   - Id: 244
     Name: AM_REST
     Description: Vaporize
@@ -7410,15 +7413,15 @@ Body:
     Requires:
       SpCost:
         - Level: 1
-          Amount: 11
+          Amount: 5
         - Level: 2
-          Amount: 12
+          Amount: 6
         - Level: 3
-          Amount: 13
+          Amount: 7
         - Level: 4
-          Amount: 14
+          Amount: 8
         - Level: 5
-          Amount: 15
+          Amount: 9
       Weapon:
         Fist: true
         Dagger: true
@@ -7463,15 +7466,15 @@ Body:
     Requires:
       SpCost:
         - Level: 1
-          Amount: 11
+          Amount: 3
         - Level: 2
-          Amount: 12
+          Amount: 4
         - Level: 3
-          Amount: 13
+          Amount: 5
         - Level: 4
-          Amount: 14
+          Amount: 6
         - Level: 5
-          Amount: 15
+          Amount: 7
       Weapon:
         Fist: true
         Dagger: true
@@ -7495,7 +7498,7 @@ Body:
         Shotgun: true
         Grenade: true
         Huuma: true
-      SpiritSphereCost: 1
+      SpiritSphereCost: 0
   - Id: 274
     Name: SA_ADVANCEDBOOK
     Description: Study
@@ -8467,8 +8470,8 @@ Body:
     Flags:
       AllowWhenPerforming: true
     Range: 9
-    Hit: Single
-    HitCount: 1
+    Hit: Multi_Hit
+    HitCount: 2
     Element: Weapon
     CastTime: 1500
     Requires:
@@ -8759,10 +8762,10 @@ Body:
     Flags:
       AllowWhenPerforming: true
     Range: 9
-    Hit: Single
-    HitCount: 1
+    Hit: Multi_Hit
+    HitCount: 2
     Element: Weapon
-    CastTime: 1500
+    CastTime: 750
     Requires:
       SpCost:
         - Level: 1
@@ -10079,7 +10082,7 @@ Body:
           Amount: 20
         - Level: 10
           Amount: 22
-      SpiritSphereCost: 2
+      SpiritSphereCost: 1
   - Id: 373
     Name: PF_HPCONVERSION
     Description: Indulge
@@ -13610,6 +13613,63 @@ Body:
       ItemCost:
         - Item: Medicine_Bowl
           Amount: 200
+  - Id: 576
+    Name: AM_TWILIGHT4
+    Description: Twilight Alchemy 4
+    MaxLevel: 1
+    TargetType: Self
+    DamageFlags:
+      NoDamage: true
+    Flags:
+      IsSpirit: true
+    Hit: Single
+    CastTime: 3000
+    AfterCastActDelay: 10000
+    CastTimeFlags:
+      IgnoreDex: true
+    Requires:
+      SpCost: 200
+      ItemCost:
+        - Item: Medicine_Bowl
+          Amount: 200
+  - Id: 787
+    Name: AM_TWILIGHT5
+    Description: Twilight Alchemy 5
+    MaxLevel: 1
+    TargetType: Self
+    DamageFlags:
+      NoDamage: true
+    Flags:
+      IsSpirit: true
+    Hit: Single
+    CastTime: 3000
+    AfterCastActDelay: 10000
+    CastTimeFlags:
+      IgnoreDex: true
+    Requires:
+      SpCost: 200
+      ItemCost:
+        - Item: Medicine_Bowl
+          Amount: 400
+  - Id: 788
+    Name: AM_TWILIGHT6
+    Description: Twilight Alchemy 6
+    MaxLevel: 1
+    TargetType: Self
+    DamageFlags:
+      NoDamage: true
+    Flags:
+      IsSpirit: true
+    Hit: Single
+    CastTime: 3000
+    AfterCastActDelay: 10000
+    CastTimeFlags:
+      IgnoreDex: true
+    Requires:
+      SpCost: 200
+      ItemCost:
+        - Item: Medicine_Bowl
+          Amount: 200
   - Id: 499
     Name: HT_POWER
     Description: Beast Strafing
@@ -16899,6 +16959,64 @@ Body:
       Flag:
         NoReiteration: true
         NoOverlap: true
+  - Id: 784
+    Name: BS_CARTEFFICIENCY
+    Description: Cart Efficiency
+    MaxLevel: 1
+    TargetType: Self
+    Flags:
+      IsQuest: true
+    DamageFlags:
+      NoDamage: true
+    Hit: Single
+    HitCount: 1
+    Duration1: 600000
+    Requires:
+      SpCost: 10
+      ItemCost:
+        - Item: Tempered_Iron
+          Amount: 1
+    Status: CartEfficiency
+  - Id: 785
+    Name: AM_ALCHEMYEFFICIENCY
+    Description: Alchemy Efficiency
+    MaxLevel: 3
+    TargetType: Self
+    Flags:
+      IsQuest: true
+    DamageFlags:
+      NoDamage: true
+    Hit: Single
+    HitCount: 1
+    Duration1: 600000
+    Requires:
+      SpCost: 10
+      ItemCost:
+        - Level: 1
+          Item: Acid_Bottle
+          Amount: 1
+        - Level: 2
+          Item: Fire_Bottle
+          Amount: 1
+        - Level: 3
+          Item: Efficient_Bottle
+          Amount: 1
+  - Id: 789
+    Name: NV_TAP
+    Description: Tap
+    MaxLevel: 1
+    TargetType: Self
+    Flags:
+      IsQuest: true
+    DamageFlags:
+      NoDamage: true
+      Splash: true
+    Hit: Single
+    HitCount: 1
+    SplashArea: 15
+    AfterCastActDelay: 300
+    Requires:
+      SpCost: 1
   - Id: 1001
     Name: KN_CHARGEATK
     Description: Charge Attack
@@ -17125,9 +17243,9 @@ Body:
       AllowOnMado: true
     Hit: Single
     SplashArea: 2
-    AfterCastActDelay: 1000
+    AfterCastActDelay: 0
     Requires:
-      SpCost: 10
+      SpCost: 0
   - Id: 1014
     Name: PR_REDEMPTIO
     Description: Redemptio
@@ -19528,6 +19646,7 @@ Body:
           Amount: 320
         - Level: 3
           Amount: 360
+    Status: Blessing
   - Id: 2042
     Name: AB_CANTO
     Description: Canto Candidus
@@ -19563,6 +19682,7 @@ Body:
           Amount: 220
         - Level: 3
           Amount: 240
+    Status: IncreaseAgi
   - Id: 2043
     Name: AB_CHEAL
     Description: Coluceo Heal
