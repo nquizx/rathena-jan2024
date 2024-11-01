@@ -1527,6 +1527,13 @@ enum e_job_types
 	JT_4_EP21_HOWELL_S,
 	JT_4_EP21_TAN_S,
 
+	JT_4_M_VACATION_MARAM = 10595,
+	JT_4_CLB_SS_FC,
+	JT_4_CLB_SS_TZ,
+	JT_4_CLB_SS_AJ,
+	JT_4_CLB_SS_LK,
+	JT_4_SMART_ANDRE,
+
 	JT_ROZ_MQ_XAVIER = 13000,
 	JT_ROZ_MQ_MOCLORD,
 	JT_ROZ_MQ_SKULD,
@@ -1545,7 +1552,7 @@ enum e_job_types
 #define MAX_NPC_CLASS2_START NPC_RANGE3_START
 #define MAX_NPC_CLASS2_END NPC_RANGE3_END
 
-//Checks if a given id is a valid npc id. [Skotlex]
+//Checks if a given id is a valid npc id.
 //Since new npcs are added all the time, the max valid value is the one before the first mob (Scorpion = 1001)
 #define npcdb_checkid(id) ( ( (id) > NPC_RANGE1_START && (id) < NPC_RANGE1_END ) || (id) == JT_HIDDEN_WARP_NPC || ( (id) > NPC_RANGE2_START && (id) < NPC_RANGE2_END ) || (id) == JT_INVISIBLE || ( (id) > NPC_RANGE3_START && (id) < NPC_RANGE3_END ) )
 
@@ -1581,7 +1588,7 @@ struct npc_data* npc_checknear(map_session_data* sd, struct block_list* bl);
 int npc_buysellsel(map_session_data* sd, int id, int type);
 e_purchase_result npc_buylist(map_session_data* sd, std::vector<s_npc_buy_list>& item_list);
 static int npc_buylist_sub(map_session_data* sd, std::vector<s_npc_buy_list>& item_list, struct npc_data* nd);
-uint8 npc_selllist(map_session_data* sd, int list_length, PACKET_CZ_PC_SELL_ITEMLIST_sub* item_list);
+uint8 npc_selllist(map_session_data* sd, int list_length, const PACKET_CZ_PC_SELL_ITEMLIST_sub* item_list);
 e_purchase_result npc_barter_purchase( map_session_data& sd, std::shared_ptr<s_npc_barter> barter, std::vector<s_barter_purchase>& purchases );
 void npc_parse_mob2(struct spawn_data* mob);
 struct npc_data* npc_add_warp(char* name, short from_mapid, short from_x, short from_y, short xs, short ys, unsigned short to_mapindex, short to_x, short to_y);
@@ -1630,7 +1637,7 @@ void npc_unload_duplicates (struct npc_data* nd);
 int npc_unload(struct npc_data* nd, bool single);
 int npc_reload(void);
 void npc_read_event_script(void);
-int npc_script_event(map_session_data* sd, enum npce_event type);
+size_t npc_script_event( map_session_data& sd, enum npce_event type );
 
 int npc_duplicate4instance(struct npc_data *snd, int16 m);
 int npc_instanceinit(struct npc_data* nd);

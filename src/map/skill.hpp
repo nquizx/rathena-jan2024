@@ -58,6 +58,7 @@ enum e_skill_nk : uint8 {
 	NK_IGNOREDEFCARD,
 	NK_CRITICAL,
 	NK_IGNORELONGCARD,
+	NK_SIMPLEDEFENSE,
 	NK_MAX,
 };
 
@@ -534,7 +535,6 @@ int skill_get_hp( uint16 skill_id ,uint16 skill_lv );
 int skill_get_mhp( uint16 skill_id ,uint16 skill_lv );
 int skill_get_sp( uint16 skill_id ,uint16 skill_lv );
 int skill_get_ap( uint16 skill_id, uint16 skill_lv );
-int skill_get_status_count( uint16 skill_id );
 int skill_get_hp_rate( uint16 skill_id, uint16 skill_lv );
 int skill_get_sp_rate( uint16 skill_id, uint16 skill_lv );
 int skill_get_ap_rate( uint16 skill_id, uint16 skill_lv );
@@ -543,7 +543,7 @@ int skill_get_weapontype( uint16 skill_id );
 int skill_get_ammotype( uint16 skill_id );
 int skill_get_ammo_qty( uint16 skill_id, uint16 skill_lv );
 int skill_get_state(uint16 skill_id);
-int skill_get_status_count( uint16 skill_id );
+size_t skill_get_status_count( uint16 skill_id );
 int skill_get_spiritball( uint16 skill_id, uint16 skill_lv );
 unsigned short skill_dummy2skill_id(unsigned short skill_id);
 
@@ -1500,7 +1500,17 @@ enum e_skill {
 	NPC_CANE_OF_EVIL_EYE,
 	NPC_CURSE_OF_RED_CUBE,
 	NPC_CURSE_OF_BLUE_CUBE,
-	NPC_KILLING_AURA,	// 783
+	NPC_KILLING_AURA,
+	ALL_EVENT_20TH_ANNIVERSARY,
+	NPC_TARGET_MARKER,
+	NPC_AIMED_SHOWER,
+	NPC_BLAZING_ERUPTION,
+	NPC_BLOCK_SEAL,
+	NPC_BLOCK_EXPLOSION,
+	NPC_FROST_FIELD,
+	NPC_LIGHTNING_JUDGEMENT,
+	NPC_GROGGY_ON,
+	NPC_RESET_EFST, //793
 
 	BS_CARTEFFICIENCY = 784,
 	AM_ALCHEMYEFFICIENCY,
@@ -2339,12 +2349,44 @@ enum e_skill {
 	NW_THE_VIGILANTE_AT_NIGHT_GUN_SHOTGUN,
 	SS_FUUMAKOUCHIKU_BLASTING,
 
+	SS_FOUR_CHARM = 5499,
+	NW_WILD_SHOT,
+	NW_MIDNIGHT_FALLEN,
+	SKE_SKY_SUN,
+	SKE_SKY_MOON,
+	SKE_STAR_LIGHT_KICK,
+	HN_OVERCOMING_CRISIS,
+	SH_CHUL_HO_BATTERING,
+	SH_HYUN_ROK_SPIRIT_POWER,	// 5507
+
 	DK_DRAGONIC_BREATH = 6001,
 	MT_SPARK_BLASTER,
 	MT_TRIPLE_LASER,
 	MT_MIGHTY_SMASH,
 	BO_EXPLOSIVE_POWDER,
 	BO_MAYHEMIC_THORNS,
+
+	DK_DRAGONIC_PIERCE = 6502,
+	IG_RADIANT_SPEAR,
+	IG_IMPERIAL_CROSS,
+	IG_IMPERIAL_PRESSURE,
+	MT_RUSH_STRIKE,
+	MT_POWERFUL_SWING,
+	MT_ENERGY_CANNONADE,
+	BO_MYSTERY_POWDER,
+	BO_DUST_EXPLOSION,
+	SHC_CROSS_SLASH,
+	ABC_HIT_AND_SLIDING,
+	ABC_CHASING_BREAK,
+	ABC_CHASING_SHOT,
+	ABC_ABYSS_FLAME,
+	AG_ENERGY_CONVERSION,
+	EM_PSYCHIC_STREAM,
+	CD_DIVINUS_FLOS,
+	IQ_BLAZING_FLAME_BLAST,
+	WH_WILD_WALK,
+	TR_RHYTHMICAL_WAVE,
+	ABC_ABYSS_FLAME_ATK,	// 6522
 
 	HLIF_HEAL = 8001,
 	HLIF_AVOID,

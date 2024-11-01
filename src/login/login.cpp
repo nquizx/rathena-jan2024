@@ -232,7 +232,7 @@ int login_mmo_auth_new(const char* userid, const char* pass, const char sex, con
 		return 3;
 	}
 
-	if( login_config.new_acc_length_limit && ( strlen(userid) < 4 || strlen(pass) < 4 ) )
+	if( strlen(userid) < login_config.acc_name_min_length || strlen(pass) < login_config.password_min_length)
 		return 1;
 
 	// check for invalid inputs
@@ -511,7 +511,7 @@ int lan_subnetcheck(uint32 ip) {
 
 
 /// Msg_conf tayloring
-int login_msg_config_read(char *cfgName){
+int login_msg_config_read(const char *cfgName){
 	return _msg_config_read(cfgName,LOGIN_MAX_MSG,msg_table);
 }
 const char* login_msg_txt(int msg_number){
@@ -633,8 +633,10 @@ bool login_config_read(const char* cfgName, bool normal) {
 			login_config.log_login = (bool)config_switch(w2);
 		else if(!strcmpi(w1, "new_account"))
 			login_config.new_account_flag = (bool)config_switch(w2);
-		else if(!strcmpi(w1, "new_acc_length_limit"))
-			login_config.new_acc_length_limit = (bool)config_switch(w2);
+		else if(!strcmpi(w1, "acc_name_min_length"))
+			login_config.acc_name_min_length = cap_value(atoi(w2), 0, NAME_LENGTH - 1);
+		else if(!strcmpi(w1, "password_min_length"))
+			login_config.password_min_length = cap_value(atoi(w2), 0, PASSWD_LENGTH - 1);
 		else if(!strcmpi(w1, "start_limited_time"))
 			login_config.start_limited_time = atoi(w2);
 		else if(!strcmpi(w1, "use_MD5_passwords"))
@@ -751,7 +753,13 @@ void login_set_defaults() {
 	safestrncpy(login_config.date_format, "%Y-%m-%d %H:%M:%S", sizeof(login_config.date_format));
 	login_config.console = false;
 	login_config.new_account_flag = true;
-	login_config.new_acc_length_limit = true;
+#if PACKETVER >= 20181114
+	login_config.acc_name_min_length = 6;
+	login_config.password_min_length = 6;
+#else
+	login_config.acc_name_min_length = 4;
+	login_config.password_min_length = 4;
+#endif
 	login_config.use_md5_passwds = false;
 	login_config.group_id_to_connect = -1;
 	login_config.min_group_id_to_connect = -1;
@@ -779,11 +787,6 @@ void login_set_defaults() {
 #endif
 	login_config.use_web_auth_token = true;
 	login_config.disable_webtoken_delay = 10000;
-
-	//other default conf
-	safestrncpy(login_config.loginconf_name, "conf/login_athena.conf", sizeof(login_config.loginconf_name));
-	safestrncpy(login_config.lanconf_name, "conf/subnet_athena.conf", sizeof(login_config.lanconf_name));
-	safestrncpy(login_config.msgconf_name, "conf/msg_conf/login_msg.conf", sizeof(login_config.msgconf_name));
 }
 
 
@@ -853,11 +856,11 @@ bool LoginServer::initialize( int argc, char* argv[] ){
 
 	// read login-server configuration
 	login_set_defaults();
-	logcnslif_get_options(argc,argv);
+	cli_get_options(argc,argv);
 
-	login_config_read(login_config.loginconf_name, true);
-	msg_config_read(login_config.msgconf_name);
-	login_lan_config_read(login_config.lanconf_name);
+	login_config_read(LOGIN_CONF_NAME, true);
+	msg_config_read(LOGIN_MSG_CONF_NAME);
+	login_lan_config_read(LAN_CONF_NAME);
 	//end config
 
 	do_init_loginclif();
