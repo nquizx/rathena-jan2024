@@ -9913,9 +9913,6 @@ Body:
     Script: |
       bonus bInt,1;
       bonus bMatkRate,15;
-      skill "MG_FIREBOLT",3;
-      skill "MG_COLDBOLT",3;
-      skill "MG_LIGHTNINGBOLT",3;
   - Id: 1605
     AegisName: Wand_
     Name: Wand
@@ -9971,6 +9968,9 @@ Body:
     Script: |
       bonus bInt,1;
       bonus bMatkRate,15;
+      skill "MG_FIREBOLT",3;
+      skill "MG_COLDBOLT",3;
+      skill "MG_LIGHTNINGBOLT",3;
   - Id: 1607
     AegisName: Staff
     Name: Staff
@@ -16138,7 +16138,7 @@ Body:
     ArmorLevel: 1
     Refineable: true
     View: 42
-    Scripts: |
+    Script: |
       bonus bMaxSP,50;
       bonus bUseSPrate,-3;
       bonus bHit,5;
