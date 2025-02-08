@@ -1598,7 +1598,6 @@ Body:
     Script: |
       bonus bCritical,30;
       bonus bAspdRate,8;
-      bonus2 bAddEff2,Eff_Curse,10;
   - Id: 1165
     AegisName: Masamune
     Name: Masamune
@@ -2091,7 +2090,7 @@ Body:
     SubType: 2hSword
     Buy: 20
     Weight: 2200
-    Attack: 275
+    Attack: 240
     Range: 1
     Slots: 2
     Jobs:
@@ -3058,7 +3057,7 @@ Body:
     SubType: Dagger
     Buy: 20
     Weight: 1000
-    Attack: 70
+    Attack: 80
     Range: 1
     Jobs:
       Alchemist: true
@@ -3080,7 +3079,7 @@ Body:
       Wizard: true
     Locations:
       Right_Hand: true
-    WeaponLevel: 4
+    WeaponLevel: 3
     EquipLevelMin: 36
     Refineable: true
     Script: |
@@ -3092,7 +3091,7 @@ Body:
     SubType: Dagger
     Buy: 20
     Weight: 1000
-    Attack: 70
+    Attack: 80
     Range: 1
     Jobs:
       Alchemist: true
@@ -3114,7 +3113,7 @@ Body:
       Wizard: true
     Locations:
       Right_Hand: true
-    WeaponLevel: 4
+    WeaponLevel: 3
     EquipLevelMin: 36
     Refineable: true
     Script: |
@@ -3292,7 +3291,7 @@ Body:
       Wizard: true
     Locations:
       Right_Hand: true
-    WeaponLevel: 4
+    WeaponLevel: 2
     EquipLevelMin: 36
     Refineable: true
     Script: |
@@ -4050,13 +4049,13 @@ Body:
     SubType: Katar
     Buy: 57000
     Weight: 1500
-    Attack: 140
+    Attack: 150
     Range: 1
     Jobs:
       Assassin: true
     Locations:
       Both_Hand: true
-    WeaponLevel: 4
+    WeaponLevel: 3
     EquipLevelMin: 75
     Refineable: true
     Script: |
@@ -4152,14 +4151,14 @@ Body:
     SubType: Katar
     Buy: 57000
     Weight: 1500
-    Attack: 140
+    Attack: 150
     Range: 1
     Slots: 1
     Jobs:
       Assassin: true
     Locations:
       Both_Hand: true
-    WeaponLevel: 4
+    WeaponLevel: 3
     EquipLevelMin: 75
     Refineable: true
     Script: |
@@ -7210,7 +7209,7 @@ Body:
     SubType: 2hSpear
     Buy: 20
     Weight: 2000
-    Attack: 170
+    Attack: 180
     Range: 3
     Jobs:
       Crusader: true
@@ -7218,7 +7217,7 @@ Body:
       Swordman: true
     Locations:
       Both_Hand: true
-    WeaponLevel: 4
+    WeaponLevel: 3
     EquipLevelMin: 48
     Refineable: true
     Script: |
@@ -7507,7 +7506,7 @@ Body:
     SubType: 2hSpear
     Buy: 20
     Weight: 2000
-    Attack: 170
+    Attack: 180
     Range: 3
     Slots: 3
     Jobs:
@@ -7516,7 +7515,7 @@ Body:
       Swordman: true
     Locations:
       Both_Hand: true
-    WeaponLevel: 4
+    WeaponLevel: 3
     EquipLevelMin: 48
     Refineable: true
     Script: |
@@ -9914,6 +9913,9 @@ Body:
     Script: |
       bonus bInt,1;
       bonus bMatkRate,15;
+      skill "MG_FIREBOLT",3;
+      skill "MG_COLDBOLT",3;
+      skill "MG_LIGHTNINGBOLT",3;
   - Id: 1605
     AegisName: Wand_
     Name: Wand
@@ -11878,7 +11880,7 @@ Body:
     SubType: Bow
     Buy: 20
     Weight: 1600
-    Attack: 120
+    Attack: 130
     Range: 5
     Jobs:
       Archer: true
@@ -11887,7 +11889,7 @@ Body:
       Rogue: true
     Locations:
       Both_Hand: true
-    WeaponLevel: 3
+    WeaponLevel: 2
     EquipLevelMin: 65
     Refineable: true
     Script: |
@@ -12033,9 +12035,9 @@ Body:
     SubType: Bow
     Buy: 20
     Weight: 1000
-    Attack: 105
+    Attack: 125
     Range: 5
-    Slots: 2
+    Slots: 1
     Jobs:
       Hunter: true
     Classes:
@@ -16136,6 +16138,11 @@ Body:
     ArmorLevel: 1
     Refineable: true
     View: 42
+    Scripts: |
+      bonus bMaxSP,50;
+      bonus bUseSPrate,-3;
+      bonus bHit,5;
+      bonus2 bSubRace,RC_Fish,5;
   - Id: 2258
     AegisName: Sharp_Gear
     Name: Spiky Band
@@ -17874,7 +17881,7 @@ Body:
     Refineable: true
     Script: |
       bonus2 bResEff,Eff_Stun,3000;
-      bonus2 bResEff,Eff_Freeze,3000;
+      bonus2 bResEff,Eff_Freeze,3500;
   - Id: 2365
     AegisName: Orleans_Gown
     Name: Orleans's Gown
@@ -21019,6 +21026,8 @@ Body:
     Locations:
       Both_Accessory: true
     ArmorLevel: 1
+    Script: |
+      bonus2 bSubRace,RC_Undead,1;
   - Id: 2610
     AegisName: Gold_Ring
     Name: Gold Ring
@@ -22647,8 +22656,6 @@ Body:
       Crusader: true
       Knight: true
       Swordman: true
-    Classes:
-      Upper: true
     Locations:
       Both_Accessory: true
     ArmorLevel: 1
@@ -24888,7 +24895,7 @@ Body:
     ArmorLevel: 1
     View: 91
     Script: |
-      bonus2 bResEff,Eff_Poison,3000;
+      bonus2 bResEff,Eff_Poison,10000;
   - Id: 5006
     AegisName: Machoman_Glasses
     Name: Machoman's Glasses
@@ -24960,6 +24967,9 @@ Body:
     Script: |
       bonus bMdef,3;
       bonus bUnbreakableHelm;
+      bonus bVit,1;
+      bonus bMaxHP,200;
+      bonus bHealPower2,5;
   - Id: 5010
     AegisName: Indian_Hair_Piece
     Name: Indian Fillet
@@ -37373,7 +37383,7 @@ Body:
     SubType: Dagger
     Buy: 20
     Weight: 600
-    Attack: 70
+    Attack: 80
     Range: 1
     Slots: 1
     Jobs:
@@ -37396,7 +37406,7 @@ Body:
       Wizard: true
     Locations:
       Right_Hand: true
-    WeaponLevel: 4
+    WeaponLevel: 2
     EquipLevelMin: 36
     Refineable: true
     Script: |
@@ -37703,7 +37713,7 @@ Body:
     SubType: Dagger
     Buy: 20
     Weight: 500
-    Attack: 120
+    Attack: 140
     Range: 1
     Slots: 3
     Jobs:
@@ -37728,7 +37738,7 @@ Body:
       Upper: true
     Locations:
       Right_Hand: true
-    WeaponLevel: 4
+    WeaponLevel: 3
     EquipLevelMin: 55
     Refineable: true
     Script: |
@@ -37857,7 +37867,7 @@ Body:
     SubType: Dagger
     Buy: 20
     Weight: 1000
-    Attack: 70
+    Attack: 80
     Range: 1
     Slots: 3
     Jobs:
@@ -37880,7 +37890,7 @@ Body:
       Wizard: true
     Locations:
       Right_Hand: true
-    WeaponLevel: 4
+    WeaponLevel: 3
     EquipLevelMin: 36
     Refineable: true
     Script: |
@@ -37892,7 +37902,7 @@ Body:
     SubType: Dagger
     Buy: 20
     Weight: 1000
-    Attack: 70
+    Attack: 80
     Range: 1
     Slots: 3
     Jobs:
@@ -37915,7 +37925,7 @@ Body:
       Wizard: true
     Locations:
       Right_Hand: true
-    WeaponLevel: 4
+    WeaponLevel: 3
     EquipLevelMin: 36
     Refineable: true
     Script: |
@@ -38586,7 +38596,8 @@ Body:
     SubType: Revolver
     Buy: 100000
     Weight: 500
-    Attack: 20
+    Attack: 40
+    Slots: 3
     Range: 7
     Jobs:
       Gunslinger: true
@@ -40083,7 +40094,7 @@ Body:
     SubType: 1hSword
     Buy: 20
     Weight: 1500
-    Attack: 150
+    Attack: 140
     Range: 1
     Slots: 3
     Jobs:
@@ -40114,7 +40125,7 @@ Body:
     SubType: 1hSword
     Buy: 20
     Weight: 1500
-    Attack: 160
+    Attack: 140
     Range: 1
     Slots: 3
     Jobs:
