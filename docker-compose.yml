@@ -1,0 +1,17 @@
+services:
+    rodb2025:
+        image: "mariadb:bionic"
+        container_name: "rathena_db"
+        ports:
+            - "3306:3306" # allow DB connections from host
+        volumes:
+            - "rathenadb:/var/lib/mysql" # save database to local disk
+            - "./sql-files/:/docker-entrypoint-initdb.d" # initialize db with ./sql-files
+        environment:
+            MYSQL_ROOT_PASSWORD: quidapchai
+            MYSQL_DATABASE: ro2024
+            MYSQL_USER: ro2024username
+            MYSQL_PASSWORD: ro2024password
+
+volumes:
+    rathenadb:
