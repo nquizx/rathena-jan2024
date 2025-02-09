@@ -117,8 +117,20 @@ Ai: 0$1
 # Client-side
 
 skillinfoz folder:
-- skilltreeview.lub
 - skillid.lub
-- skilldescript.lub
 - skillinfolist.lub
+- skilldescript.lub
+- skilltreeview.lub
+```
+
+Update skill icon:
+```
+Put into: `data/sprite/아�?템`
+- SKILL_NAME.spr
+- SKILL_NAME.act
+
+Put into: `data/texture/유저인터페�?스/item`
+- SKILL_NAME.bmp
+
+Icon name should be update in `skillinfolist.lub`
 ```
