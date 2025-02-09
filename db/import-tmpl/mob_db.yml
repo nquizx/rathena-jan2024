@@ -80,7 +80,23 @@ Header:
   Type: MOB_DB
   Version: 4
 
-#Body:
+Body:
+  - Id: 1617
+    Drops:
+      - Item: Flamberge_
+        Rate: 175
+  - Id: 1365
+    Drops:
+      - Item: Claymore_
+        Rate: 175
+  - Id: 1253
+    Drops:
+      - Item: Hunter_Bow_
+        Rate: 175
+  - Id: 1777
+    Drops:
+      - Item: Stunner_
+        Rate: 175
 # eAthena Dev Team
 #=============================================================
 #  - Id: 1900
