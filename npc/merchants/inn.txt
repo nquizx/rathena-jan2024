@@ -19,7 +19,7 @@
 //===== Additional Comments: =================================
 //= 1.1 Blind Effect By Kobra_k88 (Taken from his old script)
 //= I added it to all of them though [Darkchild]
-//= 1.1a Minor bug fixes and optimizations. Switched from @variables 
+//= 1.1a Minor bug fixes and optimizations. Switched from @variables
 //= to arguments.[kobra_k88]
 //= 1.2 Rewrote inn script [Playtester]
 //= 1.3 Added (finally) Rachel Inn Maid. Official warp
@@ -30,8 +30,8 @@
 //=	- Removed the Cancel dialog.
 //= 1.6 More fixes, changed progression of "Rest"ing.
 //=	- Corrected Morocc NPCs. [L0ne_W0lf]
-//= 1.7 Corrected Payon NPC. [L0ne_W0lf] 
-//= 1.8 Corrected Geffen NPC. [L0ne_W0lf] 
+//= 1.7 Corrected Payon NPC. [L0ne_W0lf]
+//= 1.8 Corrected Geffen NPC. [L0ne_W0lf]
 //= 1.9 Added the Inn for Al De baran. [L0ne_W0lf]
 //= 2.0 Added Inn for the Town of Veins. [L0ne_W0lf]
 //= 2.1 Corrected NPC names to fall within proper restrictions. [L0ne_W0lf]
@@ -54,12 +54,39 @@ prt_in,244,135,2	script	Inn Employee#Sammy	53,{
 
 	callfunc "F_InnMaid","[Employee Sammy]","Nenkaras","prt_in",238,130;
 	warp "prt_in",247,104; end;
+
+	OnTouch:
+		specialeffect2 EF_HEAL2;
+		percentheal 100,100;
+		specialeffect2 EF_INCAGILITY;
+		sc_start SC_INCREASEAGI,1800000,10;
+		specialeffect2 EF_BLESSING;
+		sc_start SC_BLESSING,1800000,10;
+		end;
 }
+prt_in,246,135,4	script	Repairman#prt_in	86,{
+	callfunc "repairmain","Grendal";
+	end;
+}
+
 // East Side Inn ------------------
 prt_in,61,141,2	script	Inn Employee#Ahlma	53,{
 
 	callfunc "F_InnMaid","[Employee Ahlma]","Nenkaras","prt_in",64,136;
 	warp "prt_in",60,166; end;
+
+	OnTouch:
+		specialeffect2 EF_HEAL2;
+		percentheal 100,100;
+		specialeffect2 EF_INCAGILITY;
+		sc_start SC_INCREASEAGI,1800000,10;
+		specialeffect2 EF_BLESSING;
+		sc_start SC_BLESSING,1800000,10;
+		end;
+}
+prt_in,63,141,4	script	Repairman#repairman_prt_	86,{
+  callfunc "repairmain","Grendal";
+	end;
 }
 
 //======================== Alberta ====================================
@@ -67,6 +94,19 @@ alberta_in,32,142,3	script	Inn Employee#Jennie	53,{
 
 	callfunc "F_InnMaid","[Employee Jennie]","'Fisherman Inn'!","alberta_in",26,142;
 	warp "alberta_in",18,188; end;
+
+	OnTouch:
+		specialeffect2 EF_HEAL2;
+		percentheal 100,100;
+		specialeffect2 EF_INCAGILITY;
+		sc_start SC_INCREASEAGI,1800000,10;
+		specialeffect2 EF_BLESSING;
+		sc_start SC_BLESSING,1800000,10;
+		end;
+}
+alberta_in,32,145,4	script	Repairman#repairman_albe	86,{
+  callfunc "repairmain","Grendal";
+	end;
 }
 
 //====================== Geffen ======================================
@@ -74,6 +114,19 @@ geffen_in,70,64,5	script	Inn Employee#Cena	53,{
 
 	callfunc "F_InnMaid","[Employee Cena]","'Ifrit,' the only Inn in the city of Geffen.","geffen_in",70,59;
 	warp "geffen_in",31,31; end;
+
+	OnTouch:
+		specialeffect2 EF_HEAL2;
+		percentheal 100,100;
+		specialeffect2 EF_INCAGILITY;
+		sc_start SC_INCREASEAGI,1800000,10;
+		specialeffect2 EF_BLESSING;
+		sc_start SC_BLESSING,1800000,10;
+		end;
+}
+geffen_in,73,63,4	script	Repairman#repairman_geff	86,{
+  callfunc "repairmain","Grendal";
+	end;
 }
 
 //======================= Payon ======================================
@@ -81,29 +134,79 @@ payon_in01,132,62,5	script	Inn Employee#Ahee	53,{
 
 	callfunc "F_InnMaid","[Employee Ahee]","Payon Inn","payon_in01",136,61;
 	warp "payon_in01",132,11; end;
+
+	OnTouch:
+		specialeffect2 EF_HEAL2;
+		percentheal 100,100;
+		specialeffect2 EF_INCAGILITY;
+		sc_start SC_INCREASEAGI,1800000,10;
+		specialeffect2 EF_BLESSING;
+		sc_start SC_BLESSING,1800000,10;
+		end;
+}
+payon_in01,134,62,4	script	Repairman#repairman_payo	86,{
+  callfunc "repairmain","Grendal";
+	end;
 }
 
 //======================== Morocc ====================================
 // North East --------------------------
-/*
 morocc_in,147,141,3	script	Inn Employee#Hasna	53,{
 
 	callfunc "F_InnMaid","[Employee Hasna]","Morocc Inn","morocc_in",142,140;
 	warp "morocc_in",173,135; end;
+
+	OnTouch:
+		specialeffect2 EF_HEAL2;
+		percentheal 100,100;
+		specialeffect2 EF_INCAGILITY;
+		sc_start SC_INCREASEAGI,1800000,10;
+		specialeffect2 EF_BLESSING;
+		sc_start SC_BLESSING,1800000,10;
+		end;
+}
+morocc_in,147,144,4	script	Repairman#repairman_moro1	86,{
+  callfunc "repairmain","Grendal";
+	end;
 }
 // South --------------------------------
 morocc_in,80,100,5	script	Inn Employee#Manar	53,{
 
 	callfunc "F_InnMaid","[Employee Manar]","Morocc Inn","morocc_in",78,95;
 	warp "morocc_in",79,123; end;
+
+	OnTouch:
+		specialeffect2 EF_HEAL2;
+		percentheal 100,100;
+		specialeffect2 EF_INCAGILITY;
+		sc_start SC_INCREASEAGI,1800000,10;
+		specialeffect2 EF_BLESSING;
+		sc_start SC_BLESSING,1800000,10;
+		end;
 }
-*/
+morocc_in,78,100,4	script	Repairman#repairman_moro2	86,{
+  callfunc "repairmain","Grendal";
+	end;
+}
 
 //====================== Aldebaran ===================================
 aldeba_in,92,58,5	script	Inn Maid#Rilim	53,{
 
 	callfunc "F_InnMaid","[Rilim]","Al De Baran Inn","aldeba_in",92,50;
 	warp "aldeba_in",92,112; end;
+
+	OnTouch:
+		specialeffect2 EF_HEAL2;
+		percentheal 100,100;
+		specialeffect2 EF_INCAGILITY;
+		sc_start SC_INCREASEAGI,1800000,10;
+		specialeffect2 EF_BLESSING;
+		sc_start SC_BLESSING,1800000,10;
+		end;
+}
+aldeba_in,89,56,4	script	Repairman#repairman_alde	86,{
+  callfunc "repairmain","Grendal";
+	end;
 }
 
 //======================== Rachel ====================================
@@ -111,6 +214,175 @@ ra_in01,376,69,4	script	Inn Keeper#Annie	931,{
 
 	callfunc "F_InnMaid","[Annie]","Rachel Inn","ra_in01",375,58;
 	warp "ra_in01",384,128; end;
+
+	OnTouch:
+		specialeffect2 EF_HEAL2;
+		percentheal 100,100;
+		specialeffect2 EF_INCAGILITY;
+		sc_start SC_INCREASEAGI,1800000,10;
+		specialeffect2 EF_BLESSING;
+		sc_start SC_BLESSING,1800000,10;
+		end;
+}
+ra_in01,378,69,4	script	Repairman#repairman_ra_i	86,{
+  callfunc "repairmain","Grendal";
+	end;
+}
+
+//======================== Izlude ====================================
+izlude_in,175,124,4	script	Inn Keeper#Cena	53,{
+
+	callfunc "F_InnMaid","[Cena]","Izlude Inn","izlude_in",171,125;
+	warp "izlude_in",173,163; end;
+
+	OnTouch:
+		specialeffect2 EF_HEAL2;
+		percentheal 100,100;
+		specialeffect2 EF_INCAGILITY;
+		sc_start SC_INCREASEAGI,1800000,10;
+		specialeffect2 EF_BLESSING;
+		sc_start SC_BLESSING,1800000,10;
+		end;
+}
+izlude_in,177,124,4	script	Repairman#repairman_izlu	86,{
+  callfunc "repairmain","Grendal";
+	end;
+}
+
+//======================== Lutie (121 159) ====================================
+xmas_in,32,98,4	script	Inn Keeper#Karina	53,{
+
+	callfunc "F_InnMaid","[Karina]","Lutie Inn","xmas_in",35,91;
+	warp "xmas_in",38,93; end;
+
+	OnTouch:
+		specialeffect2 EF_HEAL2;
+		percentheal 100,100;
+		specialeffect2 EF_INCAGILITY;
+		sc_start SC_INCREASEAGI,1800000,10;
+		specialeffect2 EF_BLESSING;
+		sc_start SC_BLESSING,1800000,10;
+		end;
+}
+xmas_in,32,100,4	script	Repairman#repairman_xmas	86,{
+  callfunc "repairmain","Grendal";
+	end;
+}
+
+//======================== Comodo (127 191) ====================================
+cmd_in02,142,184,4	script	Inn Keeper#Katrin	53,{
+
+	callfunc "F_InnMaid","[Katrin]","Comodo Inn","cmd_in02",144,178;
+	warp "cmd_in02",160,206; end;
+
+	OnTouch:
+		specialeffect2 EF_HEAL2;
+		percentheal 100,100;
+		specialeffect2 EF_INCAGILITY;
+		sc_start SC_INCREASEAGI,1800000,10;
+		specialeffect2 EF_BLESSING;
+		sc_start SC_BLESSING,1800000,10;
+		end;
+}
+cmd_in02,140,184,4	script	Repairman#repairman_cmd_	86,{
+  callfunc "repairmain","Grendal";
+	end;
+}
+
+yuno_in01,25,183,4	script	Inn Keeper#Yuno_Maid	53,{
+
+	callfunc "F_InnMaid","[Sohee]","Yuno Inn","yuno_in01",25,179;
+	warp "yuno_in01",100,170; end;
+
+	OnTouch:
+		specialeffect2 EF_HEAL2;
+		percentheal 100,100;
+		specialeffect2 EF_INCAGILITY;
+		sc_start SC_INCREASEAGI,1800000,10;
+		specialeffect2 EF_BLESSING;
+		sc_start SC_BLESSING,1800000,10;
+		end;
+}
+yuno_in01,27,183,4	script	Repairman#repairman_yuno	86,{
+  callfunc "repairmain","Grendal";
+	end;
+}
+
+ama_in01,27,182,4	script	Inn Keeper#Ama_Maid	53,{
+
+	callfunc "F_InnMaid","[Yoshino]","Amatsu Inn","ama_in01",27,179;
+	warp "ama_in01",17,180; end;
+
+	OnTouch:
+		specialeffect2 EF_HEAL2;
+		percentheal 100,100;
+		specialeffect2 EF_INCAGILITY;
+		sc_start SC_INCREASEAGI,1800000,10;
+		specialeffect2 EF_BLESSING;
+		sc_start SC_BLESSING,1800000,10;
+		end;
+}
+ama_in01,29,182,4	script	Repairman#repairman_ama_	86,{
+  callfunc "repairmain","Grendal";
+	end;
+}
+
+
+gon_in,158,34,4	script	Inn Keeper#Gon_Maid	53,{
+
+	callfunc "F_InnMaid","[Yongchun]","Gon Inn","gon_in",158,32;
+	warp "gon_in",173,83; end;
+
+	OnTouch:
+		specialeffect2 EF_HEAL2;
+		percentheal 100,100;
+		specialeffect2 EF_INCAGILITY;
+		sc_start SC_INCREASEAGI,1800000,10;
+		specialeffect2 EF_BLESSING;
+		sc_start SC_BLESSING,1800000,10;
+		end;
+}
+gon_in,160,34,4	script	Repairman#repairman_gon_	86,{
+  callfunc "repairmain","Grendal";
+	end;
+}
+
+lou_in02,52,182,6	script	Inn Keeper#Lou_Maid	53,{
+
+	callfunc "F_InnMaid","[Shisha]","Louyang Inn","lou_in02",55,177;
+	warp "lou_in02",45,131; end;
+
+	OnTouch:
+		specialeffect2 EF_HEAL2;
+		percentheal 100,100;
+		specialeffect2 EF_INCAGILITY;
+		sc_start SC_INCREASEAGI,1800000,10;
+		specialeffect2 EF_BLESSING;
+		sc_start SC_BLESSING,1800000,10;
+		end;
+}
+lou_in02,54,182,4	script	Repairman#repairman_lou_	86,{
+  callfunc "repairmain","Grendal";
+	end;
+}
+
+ayo_in01,31,90,6	script	Inn Keeper#Ayothaya_Maid	53,{
+
+	callfunc "F_InnMaid","[Matte]","Ayothaya Inn","ayo_in01",31,85;
+	warp "ayo_in01",18,26; end;
+
+	OnTouch:
+		specialeffect2 EF_HEAL2;
+		percentheal 100,100;
+		specialeffect2 EF_INCAGILITY;
+		sc_start SC_INCREASEAGI,1800000,10;
+		specialeffect2 EF_BLESSING;
+		sc_start SC_BLESSING,1800000,10;
+		end;
+}
+ayo_in01,33,90,4	script	Repairman#repairman_ayo_	86,{
+  callfunc "repairmain","Grendal";
+	end;
 }
 
 //====================== Lighthalzen =================================
@@ -148,6 +420,10 @@ lhz_in02,230,284,4	script	Hotel Employee#01	86,{
 		close2;
 		warp "lhz_in02",219,150;
 		percentheal 100,100;
+		// specialeffect2 EF_INCAGILITY;
+		sc_start SC_INCREASEAGI,1800000,10;
+		// specialeffect2 EF_BLESSING;
+		sc_start SC_BLESSING,1800000,10;
 		npcskill "AL_BLESSING",10,99,99;
 		end;
 	case 3:
@@ -156,6 +432,19 @@ lhz_in02,230,284,4	script	Hotel Employee#01	86,{
 		mes "have a nice day.";
 		close;
 	}
+
+	OnTouch:
+		specialeffect2 EF_HEAL2;
+		percentheal 100,100;
+		specialeffect2 EF_INCAGILITY;
+		sc_start SC_INCREASEAGI,1800000,10;
+		specialeffect2 EF_BLESSING;
+		sc_start SC_BLESSING,1800000,10;
+		end;
+}
+lhz_in02,232,284,4	script	Repairman#repairman_lhz_	86,{
+  callfunc "repairmain","Grendal";
+	end;
 }
 
 //======================== Hugel ====================================
@@ -163,6 +452,19 @@ hu_in01,246,107,3	script	Inn Maid#Receptionist	53,{
 
 	callfunc "F_InnMaid","[Receptionist]","Hugel Inn","hu_in01",263,95;
 	warp "hu_in01",267,5; end;
+
+	OnTouch:
+		specialeffect2 EF_HEAL2;
+		percentheal 100,100;
+		specialeffect2 EF_INCAGILITY;
+		sc_start SC_INCREASEAGI,1800000,10;
+		specialeffect2 EF_BLESSING;
+		sc_start SC_BLESSING,1800000,10;
+		end;
+}
+hu_in01,246,110,4	script	Repairman#repairman_hu_i	86,{
+  callfunc "repairmain","Grendal";
+	end;
 }
 
 //======================== Veins ====================================
@@ -194,6 +496,10 @@ ve_in,157,219,5	script	Inn Master#Receptionist	709,{
 		close2;
 		set Zeny,Zeny - 5000;
 		percentheal 100,100;
+		// specialeffect2 EF_INCAGILITY;
+		sc_start SC_INCREASEAGI,1800000,10;
+		// specialeffect2 EF_BLESSING;
+		sc_start SC_BLESSING,1800000,10;
 		warp "ve_in",184,228;
 		end;
 	case 3:
@@ -201,7 +507,21 @@ ve_in,157,219,5	script	Inn Master#Receptionist	709,{
 		mes "Please come again.";
 		close;
 	}
+
+	OnTouch:
+		specialeffect2 EF_HEAL2;
+		percentheal 100,100;
+		specialeffect2 EF_INCAGILITY;
+		sc_start SC_INCREASEAGI,1800000,10;
+		specialeffect2 EF_BLESSING;
+		sc_start SC_BLESSING,1800000,10;
+		end;
 }
+ve_in,159,219,4	script	Repairman#repairman_ve_i	86,{
+  callfunc "repairmain","Grendal";
+	end;
+}
+
 
 //======================== Brasilis =================================
 bra_in01,27,24,3	script	Hotel Keeper#bra1	478,{
@@ -344,8 +664,21 @@ function	script	F_InnMaid	{
 		close2;
 		set Zeny,Zeny - 5000;
 		percentheal 100,100;
+		// specialeffect2 EF_INCAGILITY;
+		sc_start SC_INCREASEAGI,1800000,10;
+		// specialeffect2 EF_BLESSING;
+		sc_start SC_BLESSING,1800000,10;
 		return;
 	case 3:
 		close;
 	}
+
+	OnTouch:
+		specialeffect2 EF_HEAL2;
+		percentheal 100,100;
+		specialeffect2 EF_INCAGILITY;
+		sc_start SC_INCREASEAGI,1800000,10;
+		specialeffect2 EF_BLESSING;
+		sc_start SC_BLESSING,1800000,10;
+		end;
 }
