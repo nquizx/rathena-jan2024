@@ -201,23 +201,23 @@ alberta,189,151,5	script	Fisk	4W_SAILOR,{
 	mes "where'd ya";
 	mes "wanna go?";
 	next;
-	switch(select("Sunken Ship -> 250 zeny.","Izlude Marina -> 500 zeny.","Never mind.")) {
+	switch(select("Sunken Ship -> 100 zeny.","Izlude Marina -> 100 zeny.","Never mind.")) {
 	case 1:
-		if (Zeny < 250) {
+		if (Zeny < 100) {
 			mes "[Fisk]";
-			mes "Hey now, don't try to cheat me! I said 250 zeny!";
+			mes "Hey now, don't try to cheat me! I said 100 zeny!";
 			close;
 		}
-		Zeny = Zeny - 250;
+		Zeny = Zeny - 100;
 		warp "alb2trea",43,53;
 		end;
 	case 2:
-		if (Zeny < 500) {
+		if (Zeny < 100) {
 			mes "[Fisk]";
-			mes "Ain't no way yer getting there without the 500 zeny first!";
+			mes "Ain't no way yer getting there without the 100 zeny first!";
 			close;
 		}
-		Zeny = Zeny - 500;
+		Zeny = Zeny - 100;
 		if (checkre(0))
 			warp "izlude",195,212;
 		else
@@ -256,16 +256,16 @@ alberta,195,151,2	script	Paul	4_M_04,{
 	mes "to sign up?";
 	mes "The admission";
 	mes "fee is only";
-	mes "200 Zeny.";
+	mes "100 Zeny.";
 	next;
 	switch(select("Sign me up!","Uh, no thanks.")) {
 	case 1:
-		if (Zeny < 200) {
+		if (Zeny < 100) {
 			mes "[Paul]";
 			mes "It seems you don't have the money, my friend. But please come back when you're able to pay.";
 			close;
 		}
-		Zeny = Zeny - 200;
+		Zeny = Zeny - 100;
 		warp "alb2trea",62,69;
 		close;
 	case 2:
