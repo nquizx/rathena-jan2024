@@ -50,6 +50,8 @@ Body:
       - Name: NV_TRICKDEAD
         MaxLevel: 1
         Exclude: true
+      - Name: NV_TAP
+        MaxLevel: 1
       - Name: WE_CALLBABY
         MaxLevel: 1
   - Job: Swordman
@@ -1333,6 +1335,21 @@ Body:
           - Name: AM_PHARMACY
             Level: 10
       - Name: AM_TWILIGHT3
+        MaxLevel: 1
+        Requires:
+          - Name: AM_PHARMACY
+            Level: 10
+      - Name: AM_TWILIGHT4
+        MaxLevel: 1
+        Requires:
+          - Name: AM_PHARMACY
+            Level: 10
+      - Name: AM_TWILIGHT5
+        MaxLevel: 1
+        Requires:
+          - Name: AM_PHARMACY
+            Level: 10
+      - Name: AM_TWILIGHT6
         MaxLevel: 1
         Requires:
           - Name: AM_PHARMACY

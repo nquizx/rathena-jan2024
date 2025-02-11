@@ -80,7 +80,156 @@ Header:
   Type: MOB_DB
   Version: 4
 
-#Body:
+Body:
+######################
+# === WoE Supply === #
+######################
+  - Id: 1100
+    AegisName: ARGOS
+    Name: Argos
+    Drops:
+      - Item: Spiderweb
+        Rate: 9000
+  - Id: 1102
+    AegisName: BATHORY
+    Name: Bathory
+    Drops:
+      - Item: Starsand_Of_Witch
+        Rate: 4850
+  - Id: 1378
+    AegisName: DEMON_PUNGUS
+    Name: Demon Pungus
+    Drops:
+      - Item: Yellow_Gemstone
+        Rate: 3880
+  - Id: 1380
+    AegisName: DRILLER
+    Name: Driller
+    Drops:
+      - Item: Red_Gemstone
+        Rate: 3500
+  - Id: 1117
+    AegisName: EVIL_DRUID
+    Name: Evil Druid
+    Drops:
+      - Item: White_Herb
+        Rate: 2000
+  - Id: 1372
+    AegisName: GOAT
+    Name: Goat
+    Drops:
+      - Item: Blue_Herb
+        Rate: 2500
+  - Id: 1374
+    AegisName: INCUBUS
+    Name: Incubus
+    Drops:
+      - Item: White_Herb
+        Rate: 5500
+  - Id: 1132
+    AegisName: KHALITZBURG
+    Name: Khalitzburg
+    Drops:
+      - Item: White_Herb
+        Rate: 2000
+  - Id: 1881
+    AegisName: LES
+    Name: Les
+    Drops:
+      - Item: Stem
+        Rate: 2500
+      - Item: Blue_Herb
+        Rate: 1000
+  - Id: 1310
+    AegisName: MAJORUROS
+    Name: Majoruros
+    Drops:
+      - Item: White_Herb
+        Rate: 1850
+  - Id: 1020
+    AegisName: MANDRAGORA
+    Name: Mandragora
+    Drops:
+      - Item: Stem
+        Rate: 9000
+  - Id: 1118
+    AegisName: FLORA
+    Name: Flora
+    Drops:
+      - Item: Stem
+        Rate: 2000
+  - Id: 1061
+    AegisName: NIGHTMARE
+    Name: Nightmare
+    Drops:
+      - Item: Blue_Herb
+        Rate: 1000
+  - Id: 1044
+    AegisName: OBEAUNE
+    Name: Obeaune
+    Drops:
+      - Item: Heart_Of_Mermaid
+        Rate: 9000
+  - Id: 1077
+    AegisName: POISON_SPORE
+    Name: Poison Spore
+    Drops:
+      - Item: Poison_Spore
+        Rate: 9000
+  - Id: 1682
+    AegisName: REMOVAL
+    Name: Remover
+    JapaneseName: Removal
+    Drops:
+      - Item: Karvodailnirol
+        Rate: 100
+  - Id: 1012
+    AegisName: RODA_FROG
+    Name: Roda Frog
+    Drops:
+      - Item: Empty_Bottle
+        Rate: 2000
+  - Id: 1032
+    AegisName: VERIT
+    Name: Verit
+    Drops:
+      - Item: Immortal_Heart
+        Rate: 9000
+  - Id: 1192
+    AegisName: WRAITH
+    Name: Wraith
+    Drops:
+      - Item: Transparent_Cloth
+        Rate: 5820
+  - Id: 1177
+    AegisName: ZENORC
+    Name: Zenorc
+    Drops:
+      - Item: Tooth_Of_
+        Rate: 5500
+######################
+# === Slotted Items | Addtional drops === #
+######################
+  - Id: 1617
+    Drops:
+      - Item: Flamberge_
+        Rate: 175
+        RandomOptionGroup: TBRO_Melee_Weapon_Level_3
+  - Id: 1365
+    Drops:
+      - Item: Claymore_
+        Rate: 175
+        RandomOptionGroup: TBRO_Melee_Weapon_Level_3
+  - Id: 1253
+    Drops:
+      - Item: Hunter_Bow_
+        Rate: 175
+        RandomOptionGroup: TBRO_Ranged_Weapon_Level_3
+  - Id: 1777
+    Drops:
+      - Item: Stunner_
+        Rate: 175
+        RandomOptionGroup: TBRO_Melee_Weapon_Level_3
 # eAthena Dev Team
 #=============================================================
 #  - Id: 1900
