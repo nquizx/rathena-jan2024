@@ -2,8 +2,9 @@
 
 function	script	Q_Warpra	{
 	mes "[ ^0000FFCôÒng diòch chuyêÒn^000000 ]";
-	mes "Ğây laÌ ğiêÒm diòch chuyêÒn giuìp";
-	mes "^0000FFdiòch chuyêÒn^000000 tõìi nhıŞng nõi khaìc nhau, ğiêÌu kiêòn laÌ câÌn mõÒ khoìa ^0000FFCôÒng diòch chuyêÒn^000000 õÒ ğoì trıõìc.";
+	mes "Ğây laÌ côÒng diòch chuyêÒn giuìp";
+	mes "^0000FFdi chuyêÒn^000000 ğêìn nhıŞng nõi khaìc nhau, ğiêÌu kiêòn baòn câÌn laÌm laÌ câÌn mõÒ khoìa ^0000FFCôÒng diòch chuyêÒn^000000 õÒ ğoì trıõìc.";
+	mes "^FF0000Lıu yì^000000: côÒng diòch chuyêÒn chiÒ hôŞ trõò hâÌm nguòc vaÌ viò triì không thuôòc phaòm vi quaÒn lyì cuÒa Kafras. (traình caònh tranh)";
 
 	if(getarg(0) == 0) callfunc "QWS_MMarray",0;
 	if(getarg(0) == 1) callfunc "QWS_MMarray",1;
@@ -100,7 +101,7 @@ Setprice:
 	if (!$QW_S_PRICE) mes "Storage = ^FF0000 Free ^000000";
 	if ($QW_S_PRICE == 60) mes "Storage = ^0000FF Kafra Mode ^000000";
 	mes "Guild Storage = "+(($QW_GS_PRICE)?"^00FF00"+$QW_GS_PRICE:"^FF0000Free")+"^000000";
-	
+
 	switch(select("Basic - Warps","Advanced - Warps","Overseas - Warps","Basic Dungeon warp fee","Advanced Dungeon warp fee","Overseas Dungeon warp fee","Full Healing","Part Healing","Storage","Guild Storage","Back","Exit")) {
 	case 1:
 		next;
@@ -324,7 +325,7 @@ L_heal_Part:
 	if (@healchoice == 2) callsub PHeal,1,0;
 	if (@healchoice == 3) callsub PHeal,0,1;
 	goto L_end;
-	
+
 PHeal:
 	next;
 	set @Hp, MaxHp-Hp;
@@ -337,7 +338,7 @@ PHeal:
 	set @total, @HpPrice+@SpPrice;
 	mes "for a total of "+@total+" zeny";
     	if (select("Heal me","Let me see the choices again")==2) goto L_heal_Part;
-    	
+
     	if(getarg(0) == 1)set @HpPrice, (MaxHp-Hp)*$QW_HP_H_PRICE;
 	if(getarg(1) == 1)set @SpPrice, (MaxSp-Sp)*$QW_HP_S_PRICE;
 	set @healfee, @HpPrice+@SpPrice;
@@ -435,7 +436,7 @@ L_GStorage:
 	close2;
 	guildopenstorage;
 	end;
-	
+
 L_end:
 	close;
 	end;
@@ -444,7 +445,7 @@ L_end:
 L_FewWarps:
 	next;
 	mes "[ ^0000FFCôÒng diòch chuyêÒn^000000 ]";
-	mes "Iìt ğiòa ğiêÒm quaì thiÌ ği mõÒ khoìa thêm ği thiìm, haha.";
+	mes "Iìt ğiòa ğiêÒm quaì thiÌ ği mõÒ khoìa thêm ği, haha.";
 	// mes "To unlock a location talk to my colleagues all over the world.";
 	// mes "Each account has its own stamp card.";
 	// mes "Want me to check what stamps you have collected so far?";
@@ -459,7 +460,7 @@ L_NoUnlock:
 	mes "I don't unlock this location, my assistant deeper in the dungeon will unlock this place.";
 	close;
 	end;
-	
+
 //=========================Short=On=Zeny===========================
 L_Short_on_zeny:
 	next;
@@ -472,7 +473,7 @@ L_Short_on_zeny:
 	}
 	close;
 	end;
-	
+
 //===========================Stamp=Card============================
 stampcard:
 // Counting of the amount of places you have unlocked
@@ -1539,9 +1540,9 @@ function	script	QWS_DLarray	{
 function	script	QWS_Dungeon_Warpra	{
 	function QWS_D_getbin;
 	function QWS_D_setbin;
-	
+
 	if ((QWS_D_getbin(getarg(0)) == 0) && (getarg(1) != "")) {
-		showscript "Baòn ğaŞ mõÒ khoìa môòt côÒng diòch chuyêÒn";
+		showscript "Baòn ğaŞ mõÒ khoìa môòt viò triì diòch chuyêÒn";
 		specialeffect2 234;
 		QWS_D_setbin(getarg(0));
 		return;
@@ -1582,7 +1583,7 @@ binget:
 function	script	QWS_Town_Warpra	{
 	function QWS_T_getbin;
 	function QWS_T_setbin;
-	
+
 	if ((QWS_T_getbin(getarg(0)) == 0) && (getarg(1) != "")) {
 		showscript "Baòn ğaŞ mõÒ khoìa môòt côÒng diòch chuyêÒn";
 		specialeffect2 234;
