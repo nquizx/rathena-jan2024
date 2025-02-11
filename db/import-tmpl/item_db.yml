@@ -102,7 +102,11 @@ Body:
       NoGuildStorage: true
       NoMail: true
       NoAuction: true
-
+  - Id: 88888
+    AegisName: 3te_Coin
+    Name: 3te Coin
+    Type: Etc
+    Weight: 10
 #Body:
 # THQ Quest Items
 #=============================================================
