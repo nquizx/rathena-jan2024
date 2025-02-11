@@ -88,6 +88,21 @@ Header:
   Type: ITEM_DB
   Version: 3
 
+Body:
+  - Id: 6443
+    AegisName: Sillit_Pong_Bottle
+    Name: Sillit Pong Bottle
+    Type: Etc
+    Buy: 20
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+
 #Body:
 # THQ Quest Items
 #=============================================================
