@@ -207,7 +207,6 @@ Body:
     Drops:
       - Item: Tooth_Of_
         Rate: 5500
-
 ######################
 # === Slotted Items | Addtional drops === #
 ######################
@@ -215,18 +214,22 @@ Body:
     Drops:
       - Item: Flamberge_
         Rate: 175
+        RandomOptionGroup: TBRO_Melee_Weapon_Level_3
   - Id: 1365
     Drops:
       - Item: Claymore_
         Rate: 175
+        RandomOptionGroup: TBRO_Melee_Weapon_Level_3
   - Id: 1253
     Drops:
       - Item: Hunter_Bow_
         Rate: 175
+        RandomOptionGroup: TBRO_Ranged_Weapon_Level_3
   - Id: 1777
     Drops:
       - Item: Stunner_
         Rate: 175
+        RandomOptionGroup: TBRO_Melee_Weapon_Level_3
 # eAthena Dev Team
 #=============================================================
 #  - Id: 1900
