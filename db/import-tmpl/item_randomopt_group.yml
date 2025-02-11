@@ -378,15 +378,15 @@ Body:
             MinValue: 1
             MaxValue: 4
             Chance: 2000
-          - Option: DAMAGE_SIZE_SMALL_USER
+          - Option: DAMAGE_SIZE_SMALL_TARGET
             MinValue: 1
             MaxValue: 4
             Chance: 2000
-          - Option: DAMAGE_SIZE_MIDIUM_USER
+          - Option: DAMAGE_SIZE_MIDIUM_TARGET
             MinValue: 1
             MaxValue: 4
             Chance: 2000
-          - Option: DAMAGE_SIZE_LARGE_USER
+          - Option: DAMAGE_SIZE_LARGE_TARGET
             MinValue: 1
             MaxValue: 4
             Chance: 2000
@@ -543,15 +543,15 @@ Body:
             MinValue: 2
             MaxValue: 6
             Chance: 2000
-          - Option: DAMAGE_SIZE_SMALL_USER
+          - Option: DAMAGE_SIZE_SMALL_TARGET
             MinValue: 2
             MaxValue: 6
             Chance: 2000
-          - Option: DAMAGE_SIZE_MIDIUM_USER
+          - Option: DAMAGE_SIZE_MIDIUM_TARGET
             MinValue: 2
             MaxValue: 6
             Chance: 2000
-          - Option: DAMAGE_SIZE_LARGE_USER
+          - Option: DAMAGE_SIZE_LARGE_TARGET
             MinValue: 2
             MaxValue: 6
             Chance: 2000
@@ -708,15 +708,15 @@ Body:
             MinValue: 8
             MaxValue: 12
             Chance: 2000
-          - Option: DAMAGE_SIZE_SMALL_USER
+          - Option: DAMAGE_SIZE_SMALL_TARGET
             MinValue: 8
             MaxValue: 12
             Chance: 2000
-          - Option: DAMAGE_SIZE_MIDIUM_USER
+          - Option: DAMAGE_SIZE_MIDIUM_TARGET
             MinValue: 8
             MaxValue: 12
             Chance: 2000
-          - Option: DAMAGE_SIZE_LARGE_USER
+          - Option: DAMAGE_SIZE_LARGE_TARGET
             MinValue: 8
             MaxValue: 12
             Chance: 2000
@@ -873,15 +873,15 @@ Body:
             MinValue: 10
             MaxValue: 20
             Chance: 2000
-          - Option: DAMAGE_SIZE_SMALL_USER
+          - Option: DAMAGE_SIZE_SMALL_TARGET
             MinValue: 10
             MaxValue: 20
             Chance: 2000
-          - Option: DAMAGE_SIZE_MIDIUM_USER
+          - Option: DAMAGE_SIZE_MIDIUM_TARGET
             MinValue: 10
             MaxValue: 20
             Chance: 2000
-          - Option: DAMAGE_SIZE_LARGE_USER
+          - Option: DAMAGE_SIZE_LARGE_TARGET
             MinValue: 10
             MaxValue: 20
             Chance: 2000
@@ -1038,15 +1038,15 @@ Body:
             MinValue: 1
             MaxValue: 4
             Chance: 2000
-          - Option: DAMAGE_SIZE_SMALL_USER
+          - Option: DAMAGE_SIZE_SMALL_TARGET
             MinValue: 1
             MaxValue: 4
             Chance: 2000
-          - Option: DAMAGE_SIZE_MIDIUM_USER
+          - Option: DAMAGE_SIZE_MIDIUM_TARGET
             MinValue: 1
             MaxValue: 4
             Chance: 2000
-          - Option: DAMAGE_SIZE_LARGE_USER
+          - Option: DAMAGE_SIZE_LARGE_TARGET
             MinValue: 1
             MaxValue: 4
             Chance: 2000
@@ -1207,15 +1207,15 @@ Body:
             MinValue: 2
             MaxValue: 6
             Chance: 2000
-          - Option: DAMAGE_SIZE_SMALL_USER
+          - Option: DAMAGE_SIZE_SMALL_TARGET
             MinValue: 2
             MaxValue: 6
             Chance: 2000
-          - Option: DAMAGE_SIZE_MIDIUM_USER
+          - Option: DAMAGE_SIZE_MIDIUM_TARGET
             MinValue: 2
             MaxValue: 6
             Chance: 2000
-          - Option: DAMAGE_SIZE_LARGE_USER
+          - Option: DAMAGE_SIZE_LARGE_TARGET
             MinValue: 2
             MaxValue: 6
             Chance: 2000
@@ -1376,15 +1376,15 @@ Body:
             MinValue: 8
             MaxValue: 12
             Chance: 2000
-          - Option: DAMAGE_SIZE_SMALL_USER
+          - Option: DAMAGE_SIZE_SMALL_TARGET
             MinValue: 8
             MaxValue: 12
             Chance: 2000
-          - Option: DAMAGE_SIZE_MIDIUM_USER
+          - Option: DAMAGE_SIZE_MIDIUM_TARGET
             MinValue: 8
             MaxValue: 12
             Chance: 2000
-          - Option: DAMAGE_SIZE_LARGE_USER
+          - Option: DAMAGE_SIZE_LARGE_TARGET
             MinValue: 8
             MaxValue: 12
             Chance: 2000
@@ -1545,15 +1545,15 @@ Body:
             MinValue: 10
             MaxValue: 20
             Chance: 2000
-          - Option: DAMAGE_SIZE_SMALL_USER
+          - Option: DAMAGE_SIZE_SMALL_TARGET
             MinValue: 10
             MaxValue: 20
             Chance: 2000
-          - Option: DAMAGE_SIZE_MIDIUM_USER
+          - Option: DAMAGE_SIZE_MIDIUM_TARGET
             MinValue: 10
             MaxValue: 20
             Chance: 2000
-          - Option: DAMAGE_SIZE_LARGE_USER
+          - Option: DAMAGE_SIZE_LARGE_TARGET
             MinValue: 10
             MaxValue: 20
             Chance: 2000
