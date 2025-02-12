@@ -13,13 +13,13 @@
 //==================================================
 // orcsdun01 - Orc Dungeon F1
 //==================================================
-orcsdun01,0,0	monster	Steel Chonchon	1042,10
-orcsdun01,0,0	monster	Familiar	1005,15
-orcsdun01,0,0	monster	Drainliar	1111,5
-orcsdun01,0,0	monster	Orc Zombie	1153,10,3000,5000
-orcsdun01,0,0	monster	Orc Zombie	1153,30,60000,30000
-orcsdun01,0,0	monster	Orc Zombie	1153,40,120000,60000
-orcsdun01,0,0	monster	Orc Skeleton	1152,10,180000,60000
+// orcsdun01,0,0	monster	Steel Chonchon	1042,10
+// orcsdun01,0,0	monster	Familiar	1005,15
+// orcsdun01,0,0	monster	Drainliar	1111,5
+orcsdun01,0,0	monster	Orc Zombie	1153,80,10000
+// orcsdun01,0,0	monster	Orc Zombie	1153,30,60000,30000
+// orcsdun01,0,0	monster	Orc Zombie	1153,40,120000,60000
+// orcsdun01,0,0	monster	Orc Skeleton	1152,10,180000,60000
 orcsdun01,167,133,5,5	monster	Black Mushroom	1084,5,900000,450000
 orcsdun01,67,34,5,5	monster	Black Mushroom	1084,5,900000,450000
 orcsdun01,83,50,5,5	monster	White Plant	1082,2,180000,90000

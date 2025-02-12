@@ -72,9 +72,9 @@ ra_fild07,0,0	monster	Stapo	1784,10
 //==================================================
 // ra_fild08 - Rachel Field
 //==================================================
-ra_fild08,0,0	monster	Stapo	1784,100
+ra_fild08,0,0	monster	Stapo	1784,200
 ra_fild08,0,0	monster	Drops	1113,40
-ra_fild08,0,0	monster	Drosera	1781,20
+// ra_fild08,0,0	monster	Drosera	1781,20
 
 //==================================================
 // ra_fild09 - Rachel Field
