@@ -1,9 +1,11 @@
+//!rathena
+
 -	script	ItemCaptor	-1,{
 	.icNPCName$ = "[^0000FF NhiÞ thýÒ ^000000]";
   .icSessionDuration = 604800; // 604800s = 7d
 	.icShowCaptorInfo = 0;
-  requireKillCount = 1000;
 
+	requireKillCount = 1000;
   icRequiredZeny = 100000;
   icRequiredCoin = 3;
 
@@ -242,4 +244,4 @@ OnShowCaptorInfo:
 	end;
 }
 
-moc_para01,45,36,3	duplicate(ItemCaptor)	Item Captor#item_captor_NPC	RATA
+moc_para01,45,36,3	duplicate(ItemCaptor)	Aìi NhiÞ Caìp#item_captor_NPC	RATA

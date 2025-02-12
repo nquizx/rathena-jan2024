@@ -1,0 +1,128 @@
+//!rathena
+
+-	script	forged_weapon_enchanter	-1,{
+	callfunc "forged_weapon_enchant","[ ^0000FFMeÌo Ğe Buìa^000000 ]";
+	close;
+}
+
+function	script	forged_weapon_enchant	{
+	disable_items;
+	.@npc_name$ = getarg(0);
+	.@required_item = 88888;
+	.@required_amount = 10;
+
+	// Enable for equipped weapon only
+	if (!getequipisequiped(EQI_HAND_R)) {
+		mes .@npc_name$;
+		mes "- Vui loÌng mang vuŞ khiì (tay phaÒi/2 tay) trıõìc khi tiêìp tuòc -";
+		close;
+	}
+
+	// Enable for forged weapon only
+	if (getequipcardid(EQI_HAND_R, 0) != CARD0_FORGE) {
+		mes .@npc_name$;
+		mes "- Tiình nãng naÌy chiÒ aìp duòng cho vuŞ khiì ğıõòc chêì taòo tıÌ nghêÌ Thõò ReÌn (Blacksmith) -";
+		close;
+	}
+
+	// Enable for Weapon Level 3 only
+	if (getequipweaponlv(EQI_HAND_R) != 3) {
+		mes .@npc_name$;
+		mes "- Tiình nãng naÌy chiÒ aìp duòng cho vuŞ khiì Level 3 -";
+		close;
+	}
+
+	// Don't allow re-roll options
+	if (callfunc("is_having_randomopt")) {
+		mes .@npc_name$;
+		mes "- VuŞ khiì naÌy ğaŞ ğıõòc nâng câìp (enchant options) rôÌi -";
+		close;
+	}
+
+	// Check item requirements
+	if (countitem(.@required_item) < .@required_amount) {
+		mes .@npc_name$;
+		mes "- Vui loÌng mang theo ğuÒ vâòt phâÒm ğêÒ nâng câìp (enchant) -";
+		mes "- " + countitem(.@required_item) + " / " + .@required_amount + " " + mesitemlink(.@required_item, false);
+		close;
+	}
+
+	// Get Equipped Weapon ID
+	.@equip_id = getequipid(EQI_HAND_R);
+
+	// Read weapon card slots information
+	for ( .@i = 0; .@i <= 3; .@i ++ ) {
+		setarray .@card_slots[.@i],getequipcardid(EQI_HAND_R, .@i);
+	}
+
+	// Forged weapon character id is getting from MAKEDWORD function and using as
+	// LOWWORD | HIGHWORD << 16
+	.@bs_charid = .@card_slots[2] | .@card_slots[3] << 16;
+
+	// Default random opt group ID for unranked weapon is 219
+	randomoptgroup(219);
+	.@bs_isranked = callfunc("is_ranked_bs",.@bs_charid);
+
+	if (.@bs_isranked) {
+		// Change to random opt grop 220 if forger is ranked BS
+		randomoptgroup(220);
+	}
+
+	mes .@npc_name$;
+	mes "- Vâòt phâÒm: ^0000FF" + getitemname(.@equip_id) + "^000000 (" + .@equip_id + ")";
+	mes "- Thõò reÌn top: " + (.@bs_isranked?"^0000FFRanked^000000":"Unrank");
+	mes "Baòn xaìc nhâòn muôìn nâng câìp vâòt phâÒm naÌy?";
+	mes "- vuŞ khiì chêì taòo bõÒi thõò reÌn top 10 hoãòc coì hõn 1000 ğiêÒm danh tiêìng seŞ coì cõ hôòi nâng câìp cao hõn -";
+	if (select("- Xác nhâòn:- HuÒy") != 1) {
+		close;
+	}
+	close2;
+
+	progressbar "ffff00",3;
+	specialeffect EF_REPAIRWEAPON;
+
+	// Remove required item
+	delequip EQI_HAND_R;
+	delitem .@required_item,.@required_amount;
+	getitem3 .@equip_id,1,1,0,0,.@card_slots[0],.@card_slots[1],.@card_slots[2],.@card_slots[3],.@opt_id,.@opt_value,.@opt_param;
+}
+
+function	script	is_ranked_bs	{
+	.@bs_charid = getarg(0);
+
+	// Check if BS is ranked
+	.@nb = query_sql("SELECT char_id, fame FROM `char` WHERE `fame`>0 AND (`class`='10' OR `class`='4011' OR `class`='4033' OR `class`='4058' OR `class`='4064' OR `class`='4100') ORDER BY `fame` DESC LIMIT 10", .@char_ids, .@fames);
+	for (.@i = 0; .@i < 10; .@i++) {
+		if (.@bs_charid == .@char_ids[.@i]) {
+			return 1;
+		}
+	}
+
+	.@nb = query_sql("SELECT char_id, fame, class FROM `char` WHERE char_id=" + escape_sql(.@bs_charid), .@char_ids, .@fames, .@classes);
+	if (
+			(
+				.@classes[0] == 10 ||
+				.@classes[0] == 4011 ||
+				.@classes[0] == 4033 ||
+				.@classes[0] == 4058 ||
+				.@classes[0] == 4064 ||
+				.@classes[0] == 4100
+			) &&
+			.@fames[0] >= 1000
+		) {
+		return 1;
+	}
+
+	return 0;
+}
+
+function	script	is_having_randomopt	{
+	for (.@i = 0; .@i < MAX_ITEM_RDM_OPT - 1; .@i ++) {
+		if (getequiprandomoption(EQI_HAND_R, .@i, ROA_ID) != 0) {
+			return 1;
+		}
+	}
+	return 0;
+}
+
+moc_para01,45,23,4	duplicate(forged_weapon_enchanter)	MeÌo ğe buìa#WeaponEnchantNPC	545
