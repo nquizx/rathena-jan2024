@@ -18,13 +18,14 @@
 treasure01,0,0	monster	Kukre	1070,20
 treasure01,0,0	monster	Whisper	1179,5
 treasure01,0,0	monster	Whisper	1179,5,120000,60000
+treasure01,0,0	monster	Pirate Skeleton	1071,50
 treasure01,107,39,15,15	monster	Poison Spore	1077,3,180000,90000
 treasure01,107,39,15,15	monster	Hydra	1068,1,180000,90000
 treasure01,29,38,15,15	monster	Poison Spore	1077,3,180000,90000
 treasure01,68,66,13,11	monster	Hydra	1068,4,180000,90000
-treasure01,34,112,17,11	monster	Pirate Skeleton	1071,5,180000,90000
-treasure01,106,111,9,9	monster	Pirate Skeleton	1071,5,180000,90000
-treasure01,106,111,9,9	monster	Pirate Skeleton	1071,5,180000,90000
+// treasure01,34,112,17,11	monster	Pirate Skeleton	1071,5,180000,90000
+// treasure01,106,111,9,9	monster	Pirate Skeleton	1071,5,180000,90000
+// treasure01,106,111,9,9	monster	Pirate Skeleton	1071,5,180000,90000
 treasure01,67,161	monster	Hydra	1068,1,263000,100000
 treasure01,67,160	monster	Hydra	1068,1,293000,100000
 treasure01,68,161	monster	Hydra	1068,1,317000,100000
@@ -53,16 +54,16 @@ treasure01,60,182	monster	Hydra	1068,1,313000,100000
 treasure01,76,182	monster	Hydra	1068,1,269000,100000
 treasure01,82,154,11,9	monster	Poison Spore	1077,3,100000,100000
 treasure01,54,154,11,9	monster	Poison Spore	1077,3,100000,100000
-treasure01,58,165,5,5	monster	Pirate Skeleton	1071,2,300000,100000
-treasure01,69,165,5,5	monster	Pirate Skeleton	1071,2,300000,100000
-treasure01,79,165,5,5	monster	Pirate Skeleton	1071,2,300000,100000
-treasure01,150,162,5,5	monster	Pirate Skeleton	1071,3,300000,100000
+// treasure01,58,165,5,5	monster	Pirate Skeleton	1071,2,300000,100000
+// treasure01,69,165,5,5	monster	Pirate Skeleton	1071,2,300000,100000
+// treasure01,79,165,5,5	monster	Pirate Skeleton	1071,2,300000,100000
+// treasure01,150,162,5,5	monster	Pirate Skeleton	1071,3,300000,100000
 treasure01,150,162,5,5	monster	Hydra	1068,1,300000,100000
-treasure01,163,161,5,5	monster	Pirate Skeleton	1071,3,300000,100000
+// treasure01,163,161,5,5	monster	Pirate Skeleton	1071,3,300000,100000
 treasure01,163,161,5,5	monster	Hydra	1068,1,300000,100000
-treasure01,163,151,5,5	monster	Pirate Skeleton	1071,3,300000,100000
+// treasure01,163,151,5,5	monster	Pirate Skeleton	1071,3,300000,100000
 treasure01,163,151,5,5	monster	Hydra	1068,1,300000,100000
-treasure01,163,141,5,5	monster	Pirate Skeleton	1071,3,300000,100000
+// treasure01,163,141,5,5	monster	Pirate Skeleton	1071,3,300000,100000
 treasure01,163,141,5,5	monster	Hydra	1068,1,300000,100000
 treasure01,162,71	monster	Hydra	1068,1,273000,100000
 treasure01,162,70	monster	Hydra	1068,1,314000,100000
@@ -77,7 +78,7 @@ treasure01,158,63	monster	Hydra	1068,1,300000,100000
 treasure01,159,63	monster	Hydra	1068,1,300000,100000
 treasure01,158,62	monster	Hydra	1068,1,300000,100000
 treasure01,159,62	monster	Hydra	1068,1,300000,100000
-treasure01,160,60,27,19	monster	Pirate Skeleton	1071,10,300000,100000
+// treasure01,160,60,27,19	monster	Pirate Skeleton	1071,10,300000,100000
 treasure01,158,45	monster	Hydra	1068,1,302000,100000
 treasure01,158,44	monster	Hydra	1068,1,300000,100000
 treasure01,158,43	monster	Hydra	1068,1,305000,100000

@@ -223,11 +223,11 @@ mjolnir_10,0,0	monster	Green Plant	1080,10,180000,90000
 //==================================================
 // mjolnir_11 - Mt.Mjolnir
 //==================================================
-mjolnir_11,0,0	monster	Argiope	1099,10
-mjolnir_11,0,0	monster	Mandragora	1020,50
+// mjolnir_11,0,0	monster	Argiope	1099,10
+mjolnir_11,0,0	monster	Mandragora	1020,60
 mjolnir_11,0,0	monster	Flora	1118,60
 mjolnir_11,0,0	monster	Poporing	1031,10
-mjolnir_11,0,0	monster	Thief Bug Male	1054,30
+// mjolnir_11,0,0	monster	Thief Bug Male	1054,30
 mjolnir_11,112,276	monster	Green Plant	1080,1,180000,90000
 mjolnir_11,159,283	monster	Green Plant	1080,1,180000,90000
 mjolnir_11,116,240	monster	Green Plant	1080,1,180000,90000

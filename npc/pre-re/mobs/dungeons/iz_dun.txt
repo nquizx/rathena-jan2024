@@ -24,22 +24,22 @@ iz_dun00,0,0	monster	Black Mushroom	1084,5,180000,90000
 //==================================================
 // iz_dun01 - Undersea Tunnel F2
 //==================================================
-iz_dun01,0,0	monster	Plankton	1161,10
-iz_dun01,0,0	monster	Marina	1141,15
-iz_dun01,0,0	monster	Kukre	1070,50
-iz_dun01,0,0	monster	Hydra	1068,30
-iz_dun01,0,0	monster	Vadon	1066,60
-iz_dun01,0,0	monster	Cornutus	1067,15,300000,150000
+// iz_dun01,0,0	monster	Plankton	1161,0
+iz_dun01,0,0	monster	Marina	1141,50
+iz_dun01,0,0	monster	Kukre	1070,30
+// iz_dun01,0,0	monster	Hydra	1068,0
+iz_dun01,0,0	monster	Vadon	1066,90
+iz_dun01,0,0	monster	Cornutus	1067,20
 iz_dun01,0,0	monster	Black Mushroom	1084,10,180000,90000
 
 //==================================================
 // iz_dun02 - Undersea Tunnel F3
 //==================================================
-iz_dun02,0,0	monster	Hydra	1068,40
+// iz_dun02,0,0	monster	Hydra	1068,0
 iz_dun02,0,0	monster	Cornutus	1067,60
-iz_dun02,0,0	monster	Marse	1144,40
-iz_dun02,0,0	monster	Obeaune	1044,40
-iz_dun02,0,0	monster	Merman	1264,1,1800000,1200000
+iz_dun02,0,0	monster	Marse	1144,70
+iz_dun02,0,0	monster	Obeaune	1044,60
+// iz_dun02,0,0	monster	Merman	1264,0,1800000,1200000
 iz_dun02,0,0	monster	Black Mushroom	1084,15,180000,90000
 
 //==================================================
@@ -88,7 +88,7 @@ iz_dun03,0,0	monster	Merman	1264,3,1800000,1200000
 iz_dun04,0,0	monster	Marine Sphere	1142,10
 iz_dun04,0,0	monster	Swordfish	1069,10
 iz_dun04,0,0	monster	Merman	1264,40
-iz_dun04,0,0	monster	Strouf	1065,50,600000,300000
+iz_dun04,0,0	monster	Strouf	1065,50
 iz_dun04,58,135	monster	Hydra	1068,1,305000,150000
 iz_dun04,61,135	monster	Hydra	1068,1,300000,150000
 iz_dun04,42,129	monster	Hydra	1068,1,312000,150000
@@ -108,7 +108,7 @@ iz_dun04,69,243	monster	Hydra	1068,1,321000,150000
 iz_dun04,124,233	monster	Hydra	1068,1,300000,150000
 iz_dun04,134,233	monster	Hydra	1068,1,305000,150000
 iz_dun04,0,0	monster	Deviace	1108,3
-iz_dun04,103,231,10,10	monster	Merman	1264,3,150000
-iz_dun04,160,231,10,10	monster	Merman	1264,3,170000
-iz_dun04,95,147,10,10	monster	Merman	1264,3,150000
-iz_dun04,130,216,15,15	monster	Merman	1264,3,160000
+iz_dun04,103,231,10,10	monster	Merman	1264,3
+iz_dun04,160,231,10,10	monster	Merman	1264,3
+iz_dun04,95,147,10,10	monster	Merman	1264,3
+iz_dun04,130,216,15,15	monster	Merman	1264,3

@@ -30,7 +30,7 @@ man_fild02,0,0	monster	Tatacho	1986,25
 //============================================================
 // man_fild03 - Manuk Field
 //============================================================
-man_fild03,0,0	monster	Hillthion	1989,25
+man_fild03,0,0	monster	Hillthion	1989,40
 man_fild03,0,0	monster	Tatacho	1986,25
-man_fild03,0,0	monster	Centipede	1987,25
+man_fild03,0,0	monster	Centipede	1987,10
 man_fild03,0,0	monster	Hardrock Mammoth	1990,1,14400000
