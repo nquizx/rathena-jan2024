@@ -125,12 +125,15 @@ skillinfoz folder:
 
 Update skill icon:
 ```
-Put into: `data/sprite/¾ÆÀ?ÅÛ`
+Put into: `data/sprite/ï¿½ï¿½ï¿½?ï¿½ï¿½`
 - SKILL_NAME.spr
 - SKILL_NAME.act
 
-Put into: `data/texture/À¯ÀúÀÎÅÍÆäÀ?½º/item`
+Put into: `data/texture/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?ï¿½ï¿½/item`
 - SKILL_NAME.bmp
 
 Icon name should be update in `skillinfolist.lub`
 ```
+
+test
+is it automatically?
