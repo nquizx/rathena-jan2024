@@ -10,7 +10,7 @@ pipeline {
 
     stage('Build') {
       parallel {
-        stage('Compile') {ƒ
+        stage('Compile') {
           steps {
             script {
               sh 'make build'
