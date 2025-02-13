@@ -136,3 +136,4 @@ Icon name should be update in `skillinfolist.lub`
 ```
 
 test
+is it automatically?
