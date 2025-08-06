@@ -2258,7 +2258,7 @@ Body:
       TargetTrap: true
     Range: -2
     Hit: Single
-    HitCount: 1
+    HitCount: 2
     Element: Weapon
     SplashArea: 1
     Knockback: 1
@@ -2267,6 +2267,9 @@ Body:
         Plagiarism: true
         Reproduce: true
     CastTime: 700
+    AfterCastActDelay: 300
+    Duration1: 1000
+    Cooldown: 1000
     Requires:
       SpCost:
         - Level: 1

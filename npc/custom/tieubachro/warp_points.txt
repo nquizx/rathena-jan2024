@@ -766,6 +766,16 @@ function	script	QWS_Tarray	{
 
 	QWS_Make_Town_Menu 13;
 
+//----------------Kunlun:
+	setarray @pTmenuitems$[@Ti], "Kunlun";
+	setarray @pTprice[@Ti], $QW_AW_PRICE;
+
+	setarray @pTmap$[@Ti], "gonryun";
+	setarray @pTXcoords[@Ti], 161;
+	setarray @pTYcoords[@Ti], 118;
+
+	QWS_Make_Town_Menu 14;
+
 //----------------Cancel
 	setarray @pTmenuitems$[@Ti], "Cancel";
 	setarray @pTprice[@Ti], 0;
@@ -1651,7 +1661,7 @@ umbala,106,150,3	script	CôÒng diòch chuyêÒn#warpoints_town_8	4_ED_ORB,{ callfunc
 payon,182,108,4	script	CôÒng diòch chuyêÒn#warpoints_town_9	4_ED_ORB,{ callfunc "Q_Warpra",0; close; }
 yuno,162,47,4	script	CôÒng diòch chuyêÒn#warpoints_town_10	4_ED_ORB,{ callfunc "Q_Warpra",0; close; }
 xmas,150,136,6	script	CôÒng diòch chuyêÒn#warpoints_town_11	4_ED_ORB,{ callfunc "Q_Warpra",0; close; }
-gonryun,162,122,4	script	CôÒng diòch chuyêÒn#warpoints_town_12	4_ED_ORB,{ callfunc "Q_Warpra",0; close; }
+// gonryun,162,122,4	script	CôÒng diòch chuyêÒn#warpoints_town_12	4_ED_ORB,{ callfunc "Q_Warpra",0; close; }
 
 amatsu,100,154,4	script	CôÒng diòch chuyêÒn#warpoints_town_15	4_ED_ORB,{ callfunc "QWS_Town_Warpra",0,"Amatsu Town"; close; }
 ayothaya,207,169,4	script	CôÒng diòch chuyêÒn#warpoints_town_16	4_ED_ORB,{ callfunc "QWS_Town_Warpra",1,"Ayothaya Town"; close; }
@@ -1667,6 +1677,7 @@ nif_in,17,16,4	script	CôÒng diòch chuyêÒn#warpoints_town_26	4_ED_ORB,{ callfunc 
 rachel,122,147,5	script	CôÒng diòch chuyêÒn#warpoints_town_27	4_ED_ORB,{ callfunc "QWS_Town_Warpra",11,"Rachel Town"; close; }
 splendide,203,185,4	script	CôÒng diòch chuyêÒn#warpoints_town_28	4_ED_ORB,{ callfunc "QWS_Town_Warpra",12,"Splendide Town"; close; }
 veins,211,132,4	script	CôÒng diòch chuyêÒn#warpoints_town_29	4_ED_ORB,{ callfunc "QWS_Town_Warpra",13,"Veins Town"; close; }
+gonryun,162,122,4	script	CôÒng diòch chuyêÒn#warpoints_town_30	4_ED_ORB,{ callfunc "QWS_Town_Warpra",14,"Kunlun Town"; close; }
 // lasagna,202,189,5	script	Warpra#21	4_ED_ORB,{ callfunc "QWS_Town_Warpra",6,"Einbech Town"; close; }
 
 hu_fild05,176,304,1	script	CôÒng diòch chuyêÒn#0	4_ED_ORB,{ callfunc "QWS_Dungeon_Warpra",0,"Abyss Lake"; close; }
