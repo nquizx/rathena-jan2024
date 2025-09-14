@@ -1,0 +1,9 @@
+//!rathena
+
+function	script	F_RedText	{
+	return "^FF0000"+getarg(0)+"^000000";
+}
+
+function	script	F_BlueText	{
+	return "^0000FF"+getarg(0)+"^000000";
+}

@@ -1,0 +1,381 @@
+//!rathena
+
+function	script	F_MVPInstance	{
+	// Get MVP configuration
+	// Args: getarg(0) = MVP ID
+	.@mvp_id = getarg(0);
+
+	switch(.@mvp_id) {
+		case 1038: // Osiris
+			set .@spawn_time, 3600; // 60 minutes field spawn
+			set .@cooldown, 10440; // 2.9x spawn time = 174 minutes
+			set .@map$, "moc_pryd06";
+			set .@x, 100; set .@y, 100;
+			setarray .@materials[0], 7099, 50, 984, 20, 969, 100; // Worn-out Magic Scroll x50, Oridecon x20, Gold x100
+			set .@instance_name$, "Osiris_Instance";
+			break;
+
+		case 1112: // Drake
+			set .@spawn_time, 7200; // 120 minutes field spawn
+			set .@cooldown, 20880; // 2.9x = 348 minutes
+			set .@map$, "treasure02";
+			set .@x, 95; set .@y, 62;
+			setarray .@materials[0], 7095, 30, 985, 15, 969, 80; // Crystal Fragment x30, Elunium x15, Gold x80
+			set .@instance_name$, "Drake_Instance";
+			break;
+
+		case 1115: // Eddga
+			set .@spawn_time, 7200; // 120 minutes
+			set .@cooldown, 20880; // 348 minutes
+			set .@map$, "pay_fild11";
+			set .@x, 150; set .@y, 150;
+			setarray .@materials[0], 7097, 40, 984, 25, 969, 120; // Burning Heart x40, Oridecon x25, Gold x120
+			set .@instance_name$, "Eddga_Instance";
+			break;
+
+		case 1150: // Moonlight Flower
+			set .@spawn_time, 3600; // 60 minutes
+			set .@cooldown, 10440; // 174 minutes
+			set .@map$, "pay_dun04";
+			set .@x, 120; set .@y, 130;
+			setarray .@materials[0], 7063, 35, 985, 20, 969, 90; // Soft Feather x35, Elunium x20, Gold x90
+			set .@instance_name$, "Moonlight_Instance";
+			break;
+
+		case 1159: // Phreeoni
+			set .@spawn_time, 7200; // 120 minutes
+			set .@cooldown, 20880; // 348 minutes
+			set .@map$, "moc_fild17";
+			set .@x, 200; set .@y, 200;
+			setarray .@materials[0], 7054, 45, 984, 30, 969, 150; // Brigan x45, Oridecon x30, Gold x150
+			set .@instance_name$, "Phreeoni_Instance";
+			break;
+
+		case 1251: // Knight of Windstorm
+			set .@spawn_time, 3600; // 60 minutes
+			set .@cooldown, 10440; // 174 minutes
+			set .@map$, "gef_fild02";
+			set .@x, 150; set .@y, 150;
+			setarray .@materials[0], 7098, 25, 985, 15, 969, 70; // Fire Seed x25, Elunium x15, Gold x70
+			set .@instance_name$, "Stormy_Instance";
+			break;
+
+		case 1312: // Turtle General
+			set .@spawn_time, 3600; // 60 minutes
+			set .@cooldown, 10440; // 174 minutes
+			set .@map$, "tur_dun04";
+			set .@x, 100; set .@y, 100;
+			setarray .@materials[0], 7101, 30, 984, 20, 969, 100; // Peco Feather x30, Oridecon x20, Gold x100
+			set .@instance_name$, "TurtleGen_Instance";
+			break;
+
+		case 1418: // Evil Snake Lord
+			set .@spawn_time, 5400; // 90 minutes
+			set .@cooldown, 15660; // 261 minutes
+			set .@map$, "gon_dun03";
+			set .@x, 150; set .@y, 150;
+			setarray .@materials[0], 7099, 60, 985, 30, 969, 180; // Worn-out Magic Scroll x60, Elunium x30, Gold x180
+			set .@instance_name$, "ESL_Instance";
+			break;
+
+		case 1583: // Tao Gunka
+			set .@spawn_time, 18000; // 300 minutes
+			set .@cooldown, 52200; // 870 minutes
+			set .@map$, "beach_dun";
+			set .@x, 150; set .@y, 150;
+			setarray .@materials[0], 7300, 100, 984, 50, 969, 300; // Gemstone x100, Oridecon x50, Gold x300
+			set .@instance_name$, "TaoGunka_Instance";
+			break;
+
+		case 1751: // Valkyrie Randgris
+			set .@spawn_time, 28800; // 480 minutes
+			set .@cooldown, 83520; // 1392 minutes
+			set .@map$, "odin_tem03";
+			set .@x, 150; set .@y, 150;
+			setarray .@materials[0], 7301, 150, 984, 75, 969, 500; // Gemstone x150, Oridecon x75, Gold x500
+			set .@instance_name$, "Randgris_Instance";
+			break;
+
+		default:
+			return -1;
+	}
+
+	// Store data in NPC variables for later use
+	set 'mvp_spawn_time, .@spawn_time;
+	set 'mvp_cooldown, .@cooldown;
+	set 'mvp_map$, .@map$;
+	set 'mvp_x, .@x;
+	set 'mvp_y, .@y;
+	set 'mvp_instance_name$, .@instance_name$;
+
+	// Copy material array
+	deletearray 'mvp_materials[0];
+	copyarray 'mvp_materials[0], .@materials[0], getarraysize(.@materials);
+
+	return 1;
+}
+
+moc_pryd06,100,90,4	script	Fruit#osiris	4_F_HUGIRL,{
+
+	set .@mvp_id, 1038; // Osiris
+	set .mvp_id, 1038; // Store for instance use
+	callfunc "F_MVPInstance", .@mvp_id;
+
+	.@party_id = getcharid(1);
+	.@char_id = getcharid(0);
+	.@acc_id = getcharid(3);
+
+	mes "[Fruit]";
+	mes "Greetings, adventurer!";
+	mes "Would you like to challenge the MVP in a special instance?";
+	mes " ";
+	mes "^FF0000Requirements:^000000";
+	mes "- Must be in a party";
+	mes "- Party leader creates instance";
+	mes "- Pay materials or 10 MVP Tokens";
+	next;
+
+	if (.@party_id == 0) {
+		mes "[Fruit]";
+		mes "You need to be in a party to proceed.";
+		mes "Create a party first, even if solo.";
+		close;
+	}
+
+	close;
+
+	switch(select("Create Instance:Enter Instance:Check Requirements:Cancel")) {
+
+		case 1: // Create Instance
+			if (getpartyleader(.@party_id, 2) != .@char_id) {
+				mes "[Fruit]";
+				mes "Only the party leader can create the instance.";
+				close;
+			}
+
+			// Check if party already has instance
+			.@instance = instance_create('mvp_instance_name$, .@party_id);
+
+			if (.@instance == -1) {
+				mes "[Fruit]";
+				mes "Failed to create instance!";
+				mes "Your party may already have one.";
+				close;
+			} else if (.@instance == -2) {
+				mes "[Fruit]";
+				mes "Instance creation is on cooldown.";
+				mes "Please wait a moment.";
+				close;
+			} else if (.@instance == -3) {
+				mes "[Fruit]";
+				mes "Too many instances active.";
+				mes "Please try again later.";
+				close;
+			} else if (.@instance == -4) {
+				mes "[Fruit]";
+				mes "Instance already exists.";
+				close;
+			}
+
+			// Attach map to instance - rAthena style
+			if (instance_attachmap('mvp_map$, .@instance, 1, 'mvp_instance_name$ + "_" + .@party_id) == "") {
+				mes "[Fruit]";
+				mes "Failed to attach map.";
+				instance_destroy(.@instance);
+				close;
+			}
+
+			// Store MVP ID for this instance
+			set 'mvp_id_inst[.@instance], .@mvp_id;
+
+			// Initialize instance event
+			instance_attach(.@instance);
+			instance_set_timeout 10800, 1800, .@instance;
+			donpcevent instance_npcname("#MVP_Controller_" + 'mvp_map$) + "::OnInstanceInit";
+
+			mes "[Fruit]";
+			mes "Instance created successfully!";
+			mes "Party members can now enter.";
+			close;
+
+		case 2: // Enter Instance
+			.@instance = has_instance('mvp_map$);
+
+			if (.@instance == 0) {
+				mes "[Fruit]";
+				mes "Your party has no active instance.";
+				mes "Party leader must create one first.";
+				close;
+			}
+
+			// Check cooldown
+			.@cooldown_var$ = "#MVP_CD_" + .@mvp_id;
+			.@last_time = getd(.@cooldown_var$);
+			.@current_time = gettimetick(2);
+
+			if (.@last_time > 0 && (.@current_time - .@last_time) < ('mvp_cooldown * 60)) {
+				.@remaining = ('mvp_cooldown * 60) - (.@current_time - .@last_time);
+				.@hours = .@remaining / 3600;
+				.@minutes = (.@remaining % 3600) / 60;
+
+				mes "[Fruit]";
+				mes "You are still on cooldown!";
+				mes "Time remaining: " + .@hours + " hours, " + .@minutes + " minutes";
+				mes " ";
+				mes "You can enter to help, but won't receive loot.";
+				next;
+
+				if (select("Enter anyway (no loot):Cancel") == 2) {
+					close;
+				}
+
+				// Mark as helper (no loot)
+				set @mvp_helper, 1;
+				set @mvp_instance_id, .@instance;
+				warp has_instance('mvp_map$), 'mvp_x, 'mvp_y;
+				close;
+			}
+
+			// Check consecutive runs for EXP penalty
+			.@consecutive_var$ = "#MVP_Consecutive_" + .@mvp_id;
+			.@consecutive = getd(.@consecutive_var$);
+
+			if (.@consecutive > 0) {
+				mes "[Fruit]";
+				mes "^FF0000Warning:^000000 You've done this MVP " + .@consecutive + " time(s) recently.";
+				mes "EXP will be reduced by " + (.@consecutive * 20) + "%.";
+				next;
+			}
+
+			mes "[Fruit]";
+			mes "Choose payment method:";
+			mes " ";
+			mes "^0000FFMaterials Required:^000000";
+
+			// Display material requirements
+			for (.@i = 0; .@i < getarraysize('mvp_materials); .@i += 2) {
+				mes "- " + getitemname('mvp_materials[.@i]) + " x" + 'mvp_materials[.@i + 1];
+			}
+
+			mes " ";
+			mes "^0000FFOR^000000";
+			mes "- MVP Token x10";
+			next;
+
+			switch(select("Pay with Materials:Pay with MVP Tokens:Enter without paying (no loot):Cancel")) {
+
+				case 1: // Pay with materials
+					// Check materials
+					for (.@i = 0; .@i < getarraysize('mvp_materials); .@i += 2) {
+						if (countitem('mvp_materials[.@i]) < 'mvp_materials[.@i + 1]) {
+							mes "[Fruit]";
+							mes "You don't have enough materials!";
+							close;
+						}
+					}
+
+					// Take materials
+					for (.@i = 0; .@i < getarraysize('mvp_materials); .@i += 2) {
+						delitem 'mvp_materials[.@i], 'mvp_materials[.@i + 1];
+					}
+
+					// Mark as paid player
+					set @mvp_paid, 1;
+					set @mvp_instance_id, .@instance;
+
+					// Set cooldown
+					setd .@cooldown_var$, gettimetick(2);
+
+					// Increment consecutive counter
+					setd .@consecutive_var$, .@consecutive + 1;
+
+					mes "[Fruit]";
+					mes "Payment received!";
+					mes "Good luck with the MVP!";
+					next;
+					warp has_instance('mvp_map$), 'mvp_x, 'mvp_y;
+					close;
+
+				case 2: // Pay with MVP Tokens
+					if (countitem(7951) < 10) { // Assuming 7951 is MVP Token
+						mes "[Fruit]";
+						mes "You need 10 MVP Tokens!";
+						close;
+					}
+
+					delitem 7951, 10;
+
+					// Mark as paid player
+					set @mvp_paid, 1;
+					set @mvp_instance_id, .@instance;
+
+					// Set cooldown
+					setd .@cooldown_var$, gettimetick(2);
+
+					// Increment consecutive counter
+					setd .@consecutive_var$, .@consecutive + 1;
+
+					mes "[Fruit]";
+					mes "MVP Tokens received!";
+					mes "Good luck with the MVP!";
+					next;
+					warp has_instance('mvp_map$), 'mvp_x, 'mvp_y;
+					close;
+
+				case 3: // Enter without paying
+					mes "[Fruit]";
+					mes "You'll enter as a helper.";
+					mes "You won't receive any loot!";
+					mes "Only EXP will be awarded.";
+					next;
+
+					if (select("Confirm:Cancel") == 2) {
+						close;
+					}
+
+					// Mark as helper
+					set @mvp_helper, 1;
+					set @mvp_instance_id, .@instance;
+					warp has_instance('mvp_map$), 'mvp_x, 'mvp_y;
+					close;
+
+				case 4:
+					close;
+			}
+
+		case 3: // Check Requirements
+			mes "[Fruit]";
+			mes "^0000FFMaterial Requirements:^000000";
+
+			for (.@i = 0; .@i < getarraysize('mvp_materials); .@i += 2) {
+				.@has = countitem('mvp_materials[.@i]);
+				.@need = 'mvp_materials[.@i + 1];
+				.@color$ = (.@has >= .@need) ? "^00FF00" : "^FF0000";
+				mes "- " + getitemname('mvp_materials[.@i]) + ": " + .@color$ + .@has + "/" + .@need + "^000000";
+			}
+
+			mes " ";
+			mes "^0000FFOR^000000";
+			.@tokens = countitem(7951);
+			.@token_color$ = (.@tokens >= 10) ? "^00FF00" : "^FF0000";
+			mes "- MVP Tokens: " + .@token_color$ + .@tokens + "/10^000000";
+
+			// Check cooldown
+			.@cooldown_var$ = "#MVP_CD_" + .@mvp_id;
+			.@last_time = getd(.@cooldown_var$);
+			.@current_time = gettimetick(2);
+
+			if (.@last_time > 0 && (.@current_time - .@last_time) < ('mvp_cooldown * 60)) {
+				.@remaining = ('mvp_cooldown * 60) - (.@current_time - .@last_time);
+				.@hours = .@remaining / 3600;
+				.@minutes = (.@remaining % 3600) / 60;
+				mes " ";
+				mes "^FF0000Cooldown Active:^000000";
+				mes .@hours + " hours, " + .@minutes + " minutes remaining";
+			}
+			close;
+
+		case 4:
+			close;
+	}
+}
