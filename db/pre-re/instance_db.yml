@@ -81,3 +81,17 @@ Body:
       Y: 36
     AdditionalMaps:
       2@nyd: true
+  # - Id: 5
+  #   Name: Osiris_MVP_Instance
+  #   TimeLimit: 7200
+  #   Enter:
+  #     Map: moc_pryd04
+  #     X: 99
+  #     Y: 82
+  - Id: 6
+    Name: Osiris MVP Instance
+    TimeLimit: 10800
+    Enter:
+      Map: moc_pryd04
+      X: 178
+      Y: 15

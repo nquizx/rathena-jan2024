@@ -1,0 +1,1000 @@
+//!rathena
+
+// =============================================
+// Advanced MVP Instance System for rAthena
+// =============================================
+// Features:
+// - Material or MVP Token payment system
+// - Individual loot rolls for paying players
+// - Cooldown system (2.9x field spawn time)
+// - EXP reduction for consecutive runs
+// - @instancecd command for checking cooldowns
+// =============================================
+
+// =============================================
+// Function Script for Common Functions
+// =============================================
+function	script	F_MVPInstance	{
+	// Get MVP configuration
+	// Args: getarg(0) = MVP ID
+	.@mvp_id = getarg(0);
+
+	switch(.@mvp_id) {
+		case 1038: // Osiris
+			set .@spawn_time, 3600; // 60 minutes field spawn
+			set .@cooldown, 10440; // 2.9x spawn time = 174 minutes
+			set .@map$, "moc_pryd06";
+			set .@x, 100; set .@y, 100;
+			setarray .@materials[0], 7099, 50, 984, 20, 969, 100; // Worn-out Magic Scroll x50, Oridecon x20, Gold x100
+			set .@instance_name$, "Osiris_Instance";
+			break;
+
+		case 1112: // Drake
+			set .@spawn_time, 7200; // 120 minutes field spawn
+			set .@cooldown, 20880; // 2.9x = 348 minutes
+			set .@map$, "treasure02";
+			set .@x, 95; set .@y, 62;
+			setarray .@materials[0], 7095, 30, 985, 15, 969, 80; // Crystal Fragment x30, Elunium x15, Gold x80
+			set .@instance_name$, "Drake_Instance";
+			break;
+
+		case 1115: // Eddga
+			set .@spawn_time, 7200; // 120 minutes
+			set .@cooldown, 20880; // 348 minutes
+			set .@map$, "pay_fild11";
+			set .@x, 150; set .@y, 150;
+			setarray .@materials[0], 7097, 40, 984, 25, 969, 120; // Burning Heart x40, Oridecon x25, Gold x120
+			set .@instance_name$, "Eddga_Instance";
+			break;
+
+		case 1150: // Moonlight Flower
+			set .@spawn_time, 3600; // 60 minutes
+			set .@cooldown, 10440; // 174 minutes
+			set .@map$, "pay_dun04";
+			set .@x, 120; set .@y, 130;
+			setarray .@materials[0], 7063, 35, 985, 20, 969, 90; // Soft Feather x35, Elunium x20, Gold x90
+			set .@instance_name$, "Moonlight_Instance";
+			break;
+
+		case 1159: // Phreeoni
+			set .@spawn_time, 7200; // 120 minutes
+			set .@cooldown, 20880; // 348 minutes
+			set .@map$, "moc_fild17";
+			set .@x, 200; set .@y, 200;
+			setarray .@materials[0], 7054, 45, 984, 30, 969, 150; // Brigan x45, Oridecon x30, Gold x150
+			set .@instance_name$, "Phreeoni_Instance";
+			break;
+
+		case 1251: // Knight of Windstorm
+			set .@spawn_time, 3600; // 60 minutes
+			set .@cooldown, 10440; // 174 minutes
+			set .@map$, "gef_fild02";
+			set .@x, 150; set .@y, 150;
+			setarray .@materials[0], 7098, 25, 985, 15, 969, 70; // Fire Seed x25, Elunium x15, Gold x70
+			set .@instance_name$, "Stormy_Instance";
+			break;
+
+		case 1312: // Turtle General
+			set .@spawn_time, 3600; // 60 minutes
+			set .@cooldown, 10440; // 174 minutes
+			set .@map$, "tur_dun04";
+			set .@x, 100; set .@y, 100;
+			setarray .@materials[0], 7101, 30, 984, 20, 969, 100; // Peco Feather x30, Oridecon x20, Gold x100
+			set .@instance_name$, "TurtleGen_Instance";
+			break;
+
+		case 1418: // Evil Snake Lord
+			set .@spawn_time, 5400; // 90 minutes
+			set .@cooldown, 15660; // 261 minutes
+			set .@map$, "gon_dun03";
+			set .@x, 150; set .@y, 150;
+			setarray .@materials[0], 7099, 60, 985, 30, 969, 180; // Worn-out Magic Scroll x60, Elunium x30, Gold x180
+			set .@instance_name$, "ESL_Instance";
+			break;
+
+		case 1583: // Tao Gunka
+			set .@spawn_time, 18000; // 300 minutes
+			set .@cooldown, 52200; // 870 minutes
+			set .@map$, "beach_dun";
+			set .@x, 150; set .@y, 150;
+			setarray .@materials[0], 7300, 100, 984, 50, 969, 300; // Gemstone x100, Oridecon x50, Gold x300
+			set .@instance_name$, "TaoGunka_Instance";
+			break;
+
+		case 1751: // Valkyrie Randgris
+			set .@spawn_time, 28800; // 480 minutes
+			set .@cooldown, 83520; // 1392 minutes
+			set .@map$, "odin_tem03";
+			set .@x, 150; set .@y, 150;
+			setarray .@materials[0], 7301, 150, 984, 75, 969, 500; // Gemstone x150, Oridecon x75, Gold x500
+			set .@instance_name$, "Randgris_Instance";
+			break;
+
+		default:
+			return -1;
+	}
+
+	// Store data in NPC variables for later use
+	set 'mvp_spawn_time, .@spawn_time;
+	set 'mvp_cooldown, .@cooldown;
+	set 'mvp_map$, .@map$;
+	set 'mvp_x, .@x;
+	set 'mvp_y, .@y;
+	set 'mvp_instance_name$, .@instance_name$;
+
+	// Copy material array
+	deletearray 'mvp_materials[0];
+	copyarray 'mvp_materials[0], .@materials[0], getarraysize(.@materials);
+
+	return 1;
+}
+
+// =============================================
+// Fruit NPC Template (Place on each MVP map)
+// =============================================
+moc_pryd06,100,90,4	script	Fruit#osiris	4_F_HUGIRL,{
+
+	set .@mvp_id, 1038; // Osiris
+	set .mvp_id, 1038; // Store for instance use
+	callfunc "F_MVPInstance", .@mvp_id;
+
+	.@party_id = getcharid(1);
+	.@char_id = getcharid(0);
+	.@acc_id = getcharid(3);
+
+	mes "[Fruit]";
+	mes "Greetings, adventurer!";
+	mes "Would you like to challenge the MVP in a special instance?";
+	mes " ";
+	mes "^FF0000Requirements:^000000";
+	mes "- Must be in a party";
+	mes "- Party leader creates instance";
+	mes "- Pay materials or 10 MVP Tokens";
+	next;
+
+	if (.@party_id == 0) {
+		mes "[Fruit]";
+		mes "You need to be in a party to proceed.";
+		mes "Create a party first, even if solo.";
+		close;
+	}
+
+	switch(select("Create Instance:Enter Instance:Check Requirements:Cancel")) {
+
+		case 1: // Create Instance
+			if (getpartyleader(.@party_id, 2) != .@char_id) {
+				mes "[Fruit]";
+				mes "Only the party leader can create the instance.";
+				close;
+			}
+
+			// Check if party already has instance
+			.@instance = instance_create('mvp_instance_name$, .@party_id);
+
+			if (.@instance == -1) {
+				mes "[Fruit]";
+				mes "Failed to create instance!";
+				mes "Your party may already have one.";
+				close;
+			} else if (.@instance == -2) {
+				mes "[Fruit]";
+				mes "Instance creation is on cooldown.";
+				mes "Please wait a moment.";
+				close;
+			} else if (.@instance == -3) {
+				mes "[Fruit]";
+				mes "Too many instances active.";
+				mes "Please try again later.";
+				close;
+			} else if (.@instance == -4) {
+				mes "[Fruit]";
+				mes "Instance already exists.";
+				close;
+			}
+
+			// Attach map to instance - rAthena style
+			if (instance_attachmap('mvp_map$, .@instance, 1, 'mvp_instance_name$ + "_" + .@party_id) == "") {
+				mes "[Fruit]";
+				mes "Failed to attach map.";
+				instance_destroy(.@instance);
+				close;
+			}
+
+			// Store MVP ID for this instance
+			set 'mvp_id_inst[.@instance], .@mvp_id;
+
+			// Initialize instance event
+			instance_attach(.@instance);
+			instance_set_timeout 10800, 1800, .@instance;
+			donpcevent instance_npcname("#MVP_Controller_" + 'mvp_map$) + "::OnInstanceInit";
+
+			mes "[Fruit]";
+			mes "Instance created successfully!";
+			mes "Party members can now enter.";
+			close;
+
+		case 2: // Enter Instance
+			.@instance = has_instance('mvp_map$);
+
+			if (.@instance == 0) {
+				mes "[Fruit]";
+				mes "Your party has no active instance.";
+				mes "Party leader must create one first.";
+				close;
+			}
+
+			// Check cooldown
+			.@cooldown_var$ = "#MVP_CD_" + .@mvp_id;
+			.@last_time = getd(.@cooldown_var$);
+			.@current_time = gettimetick(2);
+
+			if (.@last_time > 0 && (.@current_time - .@last_time) < ('mvp_cooldown * 60)) {
+				.@remaining = ('mvp_cooldown * 60) - (.@current_time - .@last_time);
+				.@hours = .@remaining / 3600;
+				.@minutes = (.@remaining % 3600) / 60;
+
+				mes "[Fruit]";
+				mes "You are still on cooldown!";
+				mes "Time remaining: " + .@hours + " hours, " + .@minutes + " minutes";
+				mes " ";
+				mes "You can enter to help, but won't receive loot.";
+				next;
+
+				if (select("Enter anyway (no loot):Cancel") == 2) {
+					close;
+				}
+
+				// Mark as helper (no loot)
+				set @mvp_helper, 1;
+				set @mvp_instance_id, .@instance;
+				warp has_instance('mvp_map$), 'mvp_x, 'mvp_y;
+				close;
+			}
+
+			// Check consecutive runs for EXP penalty
+			.@consecutive_var$ = "#MVP_Consecutive_" + .@mvp_id;
+			.@consecutive = getd(.@consecutive_var$);
+
+			if (.@consecutive > 0) {
+				mes "[Fruit]";
+				mes "^FF0000Warning:^000000 You've done this MVP " + .@consecutive + " time(s) recently.";
+				mes "EXP will be reduced by " + (.@consecutive * 20) + "%.";
+				next;
+			}
+
+			mes "[Fruit]";
+			mes "Choose payment method:";
+			mes " ";
+			mes "^0000FFMaterials Required:^000000";
+
+			// Display material requirements
+			for (.@i = 0; .@i < getarraysize('mvp_materials); .@i += 2) {
+				mes "- " + getitemname('mvp_materials[.@i]) + " x" + 'mvp_materials[.@i + 1];
+			}
+
+			mes " ";
+			mes "^0000FFOR^000000";
+			mes "- MVP Token x10";
+			next;
+
+			switch(select("Pay with Materials:Pay with MVP Tokens:Enter without paying (no loot):Cancel")) {
+
+				case 1: // Pay with materials
+					// Check materials
+					for (.@i = 0; .@i < getarraysize('mvp_materials); .@i += 2) {
+						if (countitem('mvp_materials[.@i]) < 'mvp_materials[.@i + 1]) {
+							mes "[Fruit]";
+							mes "You don't have enough materials!";
+							close;
+						}
+					}
+
+					// Take materials
+					for (.@i = 0; .@i < getarraysize('mvp_materials); .@i += 2) {
+						delitem 'mvp_materials[.@i], 'mvp_materials[.@i + 1];
+					}
+
+					// Mark as paid player
+					set @mvp_paid, 1;
+					set @mvp_instance_id, .@instance;
+
+					// Set cooldown
+					setd .@cooldown_var$, gettimetick(2);
+
+					// Increment consecutive counter
+					setd .@consecutive_var$, .@consecutive + 1;
+
+					mes "[Fruit]";
+					mes "Payment received!";
+					mes "Good luck with the MVP!";
+					next;
+					warp has_instance('mvp_map$), 'mvp_x, 'mvp_y;
+					close;
+
+				case 2: // Pay with MVP Tokens
+					if (countitem(7951) < 10) { // Assuming 7951 is MVP Token
+						mes "[Fruit]";
+						mes "You need 10 MVP Tokens!";
+						close;
+					}
+
+					delitem 7951, 10;
+
+					// Mark as paid player
+					set @mvp_paid, 1;
+					set @mvp_instance_id, .@instance;
+
+					// Set cooldown
+					setd .@cooldown_var$, gettimetick(2);
+
+					// Increment consecutive counter
+					setd .@consecutive_var$, .@consecutive + 1;
+
+					mes "[Fruit]";
+					mes "MVP Tokens received!";
+					mes "Good luck with the MVP!";
+					next;
+					warp has_instance('mvp_map$), 'mvp_x, 'mvp_y;
+					close;
+
+				case 3: // Enter without paying
+					mes "[Fruit]";
+					mes "You'll enter as a helper.";
+					mes "You won't receive any loot!";
+					mes "Only EXP will be awarded.";
+					next;
+
+					if (select("Confirm:Cancel") == 2) {
+						close;
+					}
+
+					// Mark as helper
+					set @mvp_helper, 1;
+					set @mvp_instance_id, .@instance;
+					warp has_instance('mvp_map$), 'mvp_x, 'mvp_y;
+					close;
+
+				case 4:
+					close;
+			}
+
+		case 3: // Check Requirements
+			mes "[Fruit]";
+			mes "^0000FFMaterial Requirements:^000000";
+
+			for (.@i = 0; .@i < getarraysize('mvp_materials); .@i += 2) {
+				.@has = countitem('mvp_materials[.@i]);
+				.@need = 'mvp_materials[.@i + 1];
+				.@color$ = (.@has >= .@need) ? "^00FF00" : "^FF0000";
+				mes "- " + getitemname('mvp_materials[.@i]) + ": " + .@color$ + .@has + "/" + .@need + "^000000";
+			}
+
+			mes " ";
+			mes "^0000FFOR^000000";
+			.@tokens = countitem(7951);
+			.@token_color$ = (.@tokens >= 10) ? "^00FF00" : "^FF0000";
+			mes "- MVP Tokens: " + .@token_color$ + .@tokens + "/10^000000";
+
+			// Check cooldown
+			.@cooldown_var$ = "#MVP_CD_" + .@mvp_id;
+			.@last_time = getd(.@cooldown_var$);
+			.@current_time = gettimetick(2);
+
+			if (.@last_time > 0 && (.@current_time - .@last_time) < ('mvp_cooldown * 60)) {
+				.@remaining = ('mvp_cooldown * 60) - (.@current_time - .@last_time);
+				.@hours = .@remaining / 3600;
+				.@minutes = (.@remaining % 3600) / 60;
+				mes " ";
+				mes "^FF0000Cooldown Active:^000000";
+				mes .@hours + " hours, " + .@minutes + " minutes remaining";
+			}
+			close;
+
+		case 4:
+			close;
+	}
+}
+
+// Clone for other MVPs (simplified - use duplicate with modifications)
+treasure02,90,55,4	script	Fruit#drake	4_F_HUGIRL,{
+	set .@mvp_id, 1112; // Drake
+	set .mvp_id, 1112;
+	callfunc "F_MVPInstance", .@mvp_id;
+	doevent "Fruit#osiris::OnTalk";
+	end;
+}
+
+pay_fild11,140,140,4	duplicate(Fruit#osiris)	Fruit#eddga	4_F_HUGIRL
+pay_dun04,115,125,4	duplicate(Fruit#osiris)	Fruit#moonlight	4_F_HUGIRL
+moc_fild17,195,195,4	duplicate(Fruit#osiris)	Fruit#phreeoni	4_F_HUGIRL
+gef_fild02,145,145,4	duplicate(Fruit#osiris)	Fruit#stormy	4_F_HUGIRL
+tur_dun04,95,95,4	duplicate(Fruit#osiris)	Fruit#turtle	4_F_HUGIRL
+gon_dun03,145,145,4	duplicate(Fruit#osiris)	Fruit#esl	4_F_HUGIRL
+beach_dun,145,145,4	duplicate(Fruit#osiris)	Fruit#tao	4_F_HUGIRL
+odin_tem03,145,145,4	duplicate(Fruit#osiris)	Fruit#randgris	4_F_HUGIRL
+
+// =============================================
+// Instance Controller (for each MVP map)
+// =============================================
+moc_pryd06,0,0,0	script	#MVP_Controller_moc_pryd06	-1,{
+	end;
+
+OnInstanceInit:
+	.@map$ = instance_mapname("moc_pryd06");
+	.@instance_id = instance_id();
+	.@mvp_id = 'mvp_id_inst[.@instance_id];
+
+	if (.@mvp_id == 0) .@mvp_id = 1038; // Default to Osiris
+
+	// Spawn all normal monsters that exist on this map
+	areamonster .@map$, 0, 0, 300, 300, "Ancient Mummy", 1297, 20, instance_npcname("#MVP_Controller_moc_pryd06")+"::OnNormalDead";
+	areamonster .@map$, 0, 0, 300, 300, "Verit", 1032, 15, instance_npcname("#MVP_Controller_moc_pryd06")+"::OnNormalDead";
+	areamonster .@map$, 0, 0, 300, 300, "Mummy", 1041, 30, instance_npcname("#MVP_Controller_moc_pryd06")+"::OnNormalDead";
+
+	// Spawn the MVP at fixed location
+	monster .@map$, 100, 100, "Osiris", .@mvp_id, 1, instance_npcname("#MVP_Controller_moc_pryd06")+"::OnMVPDead";
+
+	// Announce
+	mapannounce .@map$, "The instance has been initialized. Find and defeat the MVP!", bc_map, 0x00FF00;
+	end;
+
+OnNormalDead:
+	// Normal monsters give EXP but no drops
+	// EXP is handled by the server automatically
+	end;
+
+OnMVPDead:
+	.@map$ = instance_mapname("moc_pryd06");
+	.@instance_id = instance_id();
+	.@mvp_id = 'mvp_id_inst[.@instance_id];
+	if (.@mvp_id == 0) .@mvp_id = 1038;
+
+	mapannounce .@map$, "The MVP has been defeated!", bc_map, 0xFFFF00;
+
+	// Get all players in instance and give rewards
+	getpartymember getcharid(1), 2;
+	for (.@i = 0; .@i < $@partymembercount; .@i++) {
+		if (attachrid($@partymemberaid[.@i])) {
+			if (strcharinfo(3) == .@map$) {
+
+				// Check if player paid
+				if (@mvp_paid && @mvp_instance_id == .@instance_id) {
+					// Roll individual loot
+					callfunc "F_MVPLoot", .@mvp_id;
+
+					// Give MVP Token
+					getitem 7951, 1; // MVP Token
+
+					dispbottom "You received an MVP Token!";
+				} else if (@mvp_helper && @mvp_instance_id == .@instance_id) {
+					// Helper - no loot
+					dispbottom "Thank you for helping! (No loot - helper mode)";
+				} else {
+					// On cooldown or didn't pay - only EXP
+					dispbottom "You were on cooldown or didn't pay - no loot received.";
+				}
+
+				// Apply EXP with consecutive penalty
+				.@consecutive_var$ = "#MVP_Consecutive_" + .@mvp_id;
+				.@consecutive = getd(.@consecutive_var$);
+				.@exp_penalty = min(80, .@consecutive * 20); // Max 80% reduction
+
+				.@base_exp = 5000000; // Base EXP for Osiris
+				.@job_exp = 3000000;  // Job EXP for Osiris
+
+				.@final_base = .@base_exp * (100 - .@exp_penalty) / 100;
+				.@final_job = .@job_exp * (100 - .@exp_penalty) / 100;
+
+				getexp .@final_base, .@final_job;
+
+				if (.@exp_penalty > 0) {
+					dispbottom "EXP reduced by " + .@exp_penalty + "% due to consecutive runs.";
+				}
+
+				// Clear instance variables
+				set @mvp_paid, 0;
+				set @mvp_helper, 0;
+				set @mvp_instance_id, 0;
+			}
+		}
+	}
+
+	// Announce instance closure
+	sleep2 5000;
+	mapannounce .@map$, "Instance will close in 5 minutes.", bc_map, 0xFF0000;
+
+	// Destroy instance after 5 minutes
+	sleep2 300000;
+	instance_destroy();
+	end;
+}
+
+// Similar controllers for other maps
+treasure02,0,0,0	script	#MVP_Controller_treasure02	-1,{
+	end;
+
+OnInstanceInit:
+	.@map$ = instance_mapname("treasure02");
+	.@instance_id = instance_id();
+	.@mvp_id = 'mvp_id_inst[.@instance_id];
+	if (.@mvp_id == 0) .@mvp_id = 1112; // Drake
+
+	// Spawn ship monsters
+	areamonster .@map$, 0, 0, 300, 300, "Pirate", 1229, 25, instance_npcname("#MVP_Controller_treasure02")+"::OnNormalDead";
+	areamonster .@map$, 0, 0, 300, 300, "Whisper", 1179, 20, instance_npcname("#MVP_Controller_treasure02")+"::OnNormalDead";
+
+	// Spawn Drake at fixed location
+	monster .@map$, 95, 62, "Drake", .@mvp_id, 1, instance_npcname("#MVP_Controller_treasure02")+"::OnMVPDead";
+
+	mapannounce .@map$, "Drake awaits on the Ghost Ship!", bc_map, 0x00FF00;
+	end;
+
+OnNormalDead:
+	end;
+
+OnMVPDead:
+	// Use same logic as Osiris controller
+	doevent "#MVP_Controller_moc_pryd06::OnMVPDead";
+	end;
+}
+
+// =============================================
+// MVP Loot Function
+// =============================================
+function	script	F_MVPLoot	{
+	.@mvp_id = getarg(0);
+
+	// Simulate MVP loot table
+	switch(.@mvp_id) {
+		case 1038: // Osiris
+			.@rand = rand(10000);
+			if (.@rand < 50) getitem 4232, 1; // Osiris Card (0.5%)
+			if (.@rand < 2000) getitem 1238, 1; // Zeny Knife
+			if (.@rand < 4000) getitem 1232, 1; // Assassin Dagger
+			if (rand(100) < 30) getitem 617, 1; // Old Purple Box
+			if (rand(100) < 50) getitem 607, rand(1,3); // Yggdrasil Berry
+			if (rand(100) < 70) getitem 984, rand(5,15); // Oridecon
+			break;
+
+		case 1112: // Drake
+			.@rand = rand(10000);
+			if (.@rand < 50) getitem 4137, 1; // Drake Card
+			if (.@rand < 2000) getitem 1127, 1; // Saber
+			if (.@rand < 4000) getitem 1128, 1; // Haedonggum
+			if (rand(100) < 40) getitem 617, 1; // Old Purple Box
+			if (rand(100) < 50) getitem 607, rand(1,3); // Yggdrasil Berry
+			if (rand(100) < 60) getitem 985, rand(5,15); // Elunium
+			break;
+
+		case 1115: // Eddga
+			.@rand = rand(10000);
+			if (.@rand < 50) getitem 4123, 1; // Eddga Card
+			if (.@rand < 2500) getitem 1474, 1; // Gae Bolg
+			if (rand(100) < 50) getitem 617, 1; // Old Purple Box
+			if (rand(100) < 60) getitem 607, rand(2,4); // Yggdrasil Berry
+			break;
+
+		case 1150: // Moonlight Flower
+			.@rand = rand(10000);
+			if (.@rand < 50) getitem 4131, 1; // Moonlight Card
+			if (.@rand < 2000) getitem 1234, 1; // Moonlight Dagger
+			if (rand(100) < 40) getitem 617, 1; // Old Purple Box
+			if (rand(100) < 50) getitem 607, rand(1,3); // Yggdrasil Berry
+			break;
+
+		case 1159: // Phreeoni
+			.@rand = rand(10000);
+			if (.@rand < 50) getitem 4121, 1; // Phreeoni Card
+			if (rand(100) < 30) getitem 617, 1; // Old Purple Box
+			if (rand(100) < 60) getitem 607, rand(2,4); // Yggdrasil Berry
+			if (rand(100) < 70) getitem 984, rand(10,20); // Oridecon
+			break;
+
+		case 1251: // Stormy Knight
+			.@rand = rand(10000);
+			if (.@rand < 50) getitem 4318, 1; // Stormy Knight Card
+			if (.@rand < 2500) getitem 1468, 1; // Zephyrus
+			if (rand(100) < 35) getitem 617, 1; // Old Purple Box
+			if (rand(100) < 60) getitem 985, rand(5,15); // Elunium
+			break;
+
+		case 1312: // Turtle General
+			.@rand = rand(10000);
+			if (.@rand < 50) getitem 4305, 1; // Turtle General Card
+			if (.@rand < 3000) getitem 1529, 1; // Iron Driver
+			if (rand(100) < 45) getitem 617, 1; // Old Purple Box
+			if (rand(100) < 70) getitem 607, rand(1,5); // Yggdrasil Berry
+			break;
+
+		case 1418: // Evil Snake Lord
+			.@rand = rand(10000);
+			if (.@rand < 50) getitem 4330, 1; // Evil Snake Lord Card
+			if (.@rand < 2000) getitem 1364, 1; // Great Axe
+			if (rand(100) < 50) getitem 617, 2; // Old Purple Box x2
+			if (rand(100) < 80) getitem 607, rand(3,7); // Yggdrasil Berry
+			break;
+
+		case 1583: // Tao Gunka
+			.@rand = rand(10000);
+			if (.@rand < 20) getitem 4302, 1; // Tao Gunka Card (0.2%)
+			if (.@rand < 1500) getitem 1416, 1; // Tjungkuletti
+			if (rand(100) < 60) getitem 617, 2; // Old Purple Box x2
+			if (rand(100) < 90) getitem 607, rand(5,10); // Yggdrasil Berry
+			if (rand(100) < 80) getitem 984, rand(20,40); // Oridecon
+			break;
+
+		case 1751: // Valkyrie Randgris
+			.@rand = rand(10000);
+			if (.@rand < 10) getitem 4407, 1; // Randgris Card (0.1%)
+			if (.@rand < 1000) getitem 1468, 1; // Zephyrus
+			if (.@rand < 2000) getitem 2357, 1; // Valkyrie Armor
+			if (rand(100) < 70) getitem 617, 3; // Old Purple Box x3
+			if (rand(100) < 100) getitem 607, rand(10,20); // Yggdrasil Berry
+			if (rand(100) < 90) getitem 984, rand(30,50); // Oridecon
+			if (rand(100) < 90) getitem 985, rand(30,50); // Elunium
+			break;
+
+		default:
+			// Generic loot for undefined MVPs
+			if (rand(10000) < 50) getitem 617, 1; // Old Purple Box (rare)
+			if (rand(100) < 50) getitem 607, rand(1,2); // Yggdrasil Berry
+			if (rand(100) < 60) getitem 984, rand(3,10); // Oridecon
+			break;
+	}
+
+	return;
+}
+
+// =============================================
+// @instancecd Command
+// =============================================
+-	script	MVP_Instance_CD	-1,{
+
+OnInit:
+	bindatcmd "instancecd", strnpcinfo(3)+"::OnCommand";
+	end;
+
+OnCommand:
+	mes "^FF0000=== MVP Instance Cooldowns ===^000000";
+	mes " ";
+
+	// Check each MVP cooldown
+	setarray .@mvp_ids[0], 1038, 1112, 1115, 1150, 1159, 1251, 1312, 1418, 1583, 1751;
+	setarray .@mvp_names$[0], "Osiris", "Drake", "Eddga", "Moonlight Flower", "Phreeoni",
+							   "Stormy Knight", "Turtle General", "Evil Snake Lord", "Tao Gunka", "Valkyrie Randgris";
+
+	.@has_cooldown = 0;
+
+	for (.@i = 0; .@i < getarraysize(.@mvp_ids); .@i++) {
+		.@cooldown_var$ = "#MVP_CD_" + .@mvp_ids[.@i];
+		.@last_time = getd(.@cooldown_var$);
+		.@current_time = gettimetick(2);
+
+		// Get cooldown duration for this MVP
+		callfunc "F_MVPInstance", .@mvp_ids[.@i];
+		.@cooldown_duration = 'mvp_cooldown * 60;
+
+		if (.@last_time > 0 && (.@current_time - .@last_time) < .@cooldown_duration) {
+			.@remaining = .@cooldown_duration - (.@current_time - .@last_time);
+			.@hours = .@remaining / 3600;
+			.@minutes = (.@remaining % 3600) / 60;
+
+			mes "^FF0000" + .@mvp_names$[.@i] + ":^000000 " + .@hours + "h " + .@minutes + "m";
+			.@has_cooldown = 1;
+		}
+	}
+
+	if (!.@has_cooldown) {
+		mes "^00FF00No active cooldowns!^000000";
+	}
+
+	mes " ";
+	mes "^0000FF=== Consecutive Run Penalties ===^000000";
+
+	.@has_penalty = 0;
+	for (.@i = 0; .@i < getarraysize(.@mvp_ids); .@i++) {
+		.@consecutive_var$ = "#MVP_Consecutive_" + .@mvp_ids[.@i];
+		.@consecutive = getd(.@consecutive_var$);
+
+		if (.@consecutive > 0) {
+			.@penalty = min(80, .@consecutive * 20);
+			mes .@mvp_names$[.@i] + ": " + .@consecutive + " runs (-" + .@penalty + "% EXP)";
+			.@has_penalty = 1;
+		}
+	}
+
+	if (!.@has_penalty) {
+		mes "^00FF00No consecutive run penalties!^000000";
+	}
+
+	close;
+}
+
+// =============================================
+// Daily Reset for Consecutive Runs
+// =============================================
+-	script	MVP_Daily_Reset	-1,{
+
+OnInit:
+	// Initialize on server start
+	end;
+
+OnClock0000:
+	// Reset all consecutive run counters at midnight
+	// Announce to all online players
+	announce "MVP Instance consecutive run counters have been reset!", bc_all, 0x00FF00;
+
+	// Reset for all online players
+	addrid(0);
+
+	// Reset consecutive counters
+	setarray .@mvp_ids[0], 1038, 1112, 1115, 1150, 1159, 1251, 1312, 1418, 1583, 1751;
+
+	for (.@j = 0; .@j < getarraysize(.@mvp_ids); .@j++) {
+		.@consecutive_var$ = "#MVP_Consecutive_" + .@mvp_ids[.@j];
+		setd .@consecutive_var$, 0;
+	}
+
+	dispbottom "Your MVP Instance consecutive run counters have been reset!";
+	end;
+}
+
+// =============================================
+// Additional Instance Map Controllers
+// =============================================
+pay_fild11,0,0,0	script	#MVP_Controller_pay_fild11	-1,{
+	end;
+
+OnInstanceInit:
+	.@map$ = instance_mapname("pay_fild11");
+	.@instance_id = instance_id();
+	.@mvp_id = 'mvp_id_inst[.@instance_id];
+	if (.@mvp_id == 0) .@mvp_id = 1115; // Eddga
+
+	// Spawn field monsters
+	areamonster .@map$, 0, 0, 300, 300, "Poporing", 1031, 30, instance_npcname("#MVP_Controller_pay_fild11")+"::OnNormalDead";
+	areamonster .@map$, 0, 0, 300, 300, "Hydra", 1068, 20, instance_npcname("#MVP_Controller_pay_fild11")+"::OnNormalDead";
+
+	// Spawn Eddga
+	monster .@map$, 150, 150, "Eddga", .@mvp_id, 1, instance_npcname("#MVP_Controller_pay_fild11")+"::OnMVPDead";
+
+	mapannounce .@map$, "Eddga has appeared!", bc_map, 0x00FF00;
+	end;
+
+OnNormalDead:
+	end;
+
+OnMVPDead:
+	callfunc "F_MVPReward", 1115, 6000000, 3500000;
+	end;
+}
+
+pay_dun04,0,0,0	script	#MVP_Controller_pay_dun04	-1,{
+	end;
+
+OnInstanceInit:
+	.@map$ = instance_mapname("pay_dun04");
+	.@instance_id = instance_id();
+	.@mvp_id = 'mvp_id_inst[.@instance_id];
+	if (.@mvp_id == 0) .@mvp_id = 1150; // Moonlight Flower
+
+	// Spawn dungeon monsters
+	areamonster .@map$, 0, 0, 300, 300, "Nine Tail", 1180, 15, instance_npcname("#MVP_Controller_pay_dun04")+"::OnNormalDead";
+	areamonster .@map$, 0, 0, 300, 300, "Cat o' Nine Tails", 1307, 20, instance_npcname("#MVP_Controller_pay_dun04")+"::OnNormalDead";
+
+	// Spawn Moonlight Flower
+	monster .@map$, 120, 130, "Moonlight Flower", .@mvp_id, 1, instance_npcname("#MVP_Controller_pay_dun04")+"::OnMVPDead";
+
+	mapannounce .@map$, "Moonlight Flower blooms in the darkness!", bc_map, 0x00FF00;
+	end;
+
+OnNormalDead:
+	end;
+
+OnMVPDead:
+	callfunc "F_MVPReward", 1150, 4500000, 2800000;
+	end;
+}
+
+// =============================================
+// Centralized MVP Reward Function for rAthena
+// =============================================
+function	script	F_MVPReward	{
+	.@mvp_id = getarg(0);
+	.@base_exp = getarg(1);
+	.@job_exp = getarg(2);
+
+	.@map$ = strcharinfo(3);
+	.@instance_id = instance_id();
+
+	mapannounce .@map$, "The MVP has been defeated!", bc_map, 0xFFFF00;
+
+	// Get all players in instance and give rewards
+	getpartymember getcharid(1), 2;
+	for (.@i = 0; .@i < $@partymembercount; .@i++) {
+		if (attachrid($@partymemberaid[.@i])) {
+			if (strcharinfo(3) == .@map$) {
+
+				// Check if player paid
+				if (@mvp_paid && @mvp_instance_id == .@instance_id) {
+					// Roll individual loot
+					callfunc "F_MVPLoot", .@mvp_id;
+
+					// Give MVP Token
+					getitem 7951, 1; // MVP Token
+
+					dispbottom "You received an MVP Token!";
+				} else if (@mvp_helper && @mvp_instance_id == .@instance_id) {
+					// Helper - no loot
+					dispbottom "Thank you for helping! (No loot - helper mode)";
+				} else {
+					// On cooldown or didn't pay - only EXP
+					dispbottom "No loot received (helper/cooldown mode).";
+				}
+
+				// Apply EXP with consecutive penalty
+				.@consecutive_var$ = "#MVP_Consecutive_" + .@mvp_id;
+				.@consecutive = getd(.@consecutive_var$);
+				.@exp_penalty = min(80, .@consecutive * 20);
+
+				.@final_base = .@base_exp * (100 - .@exp_penalty) / 100;
+				.@final_job = .@job_exp * (100 - .@exp_penalty) / 100;
+
+				getexp .@final_base, .@final_job;
+
+				if (.@exp_penalty > 0) {
+					dispbottom "EXP reduced by " + .@exp_penalty + "% due to consecutive runs.";
+				}
+
+				// Clear instance variables
+				set @mvp_paid, 0;
+				set @mvp_helper, 0;
+				set @mvp_instance_id, 0;
+			}
+		}
+	}
+
+	// Schedule instance destruction
+	sleep2 5000;
+	mapannounce .@map$, "Instance will close in 5 minutes.", bc_map, 0xFF0000;
+	sleep2 300000;
+	instance_destroy();
+	return;
+}
+
+// =============================================
+// GM Commands for Instance Management
+// =============================================
+-	script	MVP_Instance_GM	-1,{
+
+OnInit:
+	bindatcmd "resetmvpcd", strnpcinfo(3)+"::OnResetCD", 99;
+	bindatcmd "mvpinstanceinfo", strnpcinfo(3)+"::OnInfo", 99;
+	bindatcmd "destroymvpinstance", strnpcinfo(3)+"::OnDestroy", 99;
+	end;
+
+OnResetCD:
+	.@target$ = .@atcmd_parameters$[0];
+
+	if (.@target$ == "") {
+		message strcharinfo(0), "Usage: @resetmvpcd <player name>";
+		end;
+	}
+
+	.@aid = getcharid(3, .@target$);
+	if (!.@aid) {
+		message strcharinfo(0), "Player not found.";
+		end;
+	}
+
+	if (attachrid(.@aid)) {
+		// Reset all MVP cooldowns
+		setarray .@mvp_ids[0], 1038, 1112, 1115, 1150, 1159, 1251, 1312, 1418, 1583, 1751;
+
+		for (.@i = 0; .@i < getarraysize(.@mvp_ids); .@i++) {
+			.@cooldown_var$ = "#MVP_CD_" + .@mvp_ids[.@i];
+			.@consecutive_var$ = "#MVP_Consecutive_" + .@mvp_ids[.@i];
+			setd .@cooldown_var$, 0;
+			setd .@consecutive_var$, 0;
+		}
+
+		message strcharinfo(0), "All MVP instance cooldowns have been reset!";
+	}
+	end;
+
+OnInfo:
+	message strcharinfo(0), "===== MVP Instance System Info =====";
+	message strcharinfo(0), "Total Instance Limit: " + instance_check_party(getcharid(1));
+	message strcharinfo(0), "Use @instancecd to check your cooldowns";
+	end;
+
+OnDestroy:
+	.@party_id = getcharid(1);
+	if (.@party_id) {
+		.@instance = instance_id();
+		if (.@instance > 0) {
+			instance_destroy(.@instance);
+			message strcharinfo(0), "Instance destroyed.";
+		} else {
+			message strcharinfo(0), "No active instance found.";
+		}
+	}
+	end;
+}
+
+// =============================================
+// Database Configuration
+// =============================================
+// Add to db/instance_db.yml (rAthena format):
+/*
+Header:
+  Type: INSTANCE_DB
+  Version: 1
+
+Body:
+  - Id: 30
+    Name: Osiris_Instance
+    TimeLimit: 10800
+    IdleTimeOut: 1800
+    Enter:
+      Map: moc_pryd06
+      X: 100
+      Y: 100
+    AdditionalMaps:
+      - Map: moc_pryd06
+
+  - Id: 31
+    Name: Drake_Instance
+    TimeLimit: 10800
+    IdleTimeOut: 1800
+    Enter:
+      Map: treasure02
+      X: 95
+      Y: 62
+    AdditionalMaps:
+      - Map: treasure02
+
+  - Id: 32
+    Name: Eddga_Instance
+    TimeLimit: 10800
+    IdleTimeOut: 1800
+    Enter:
+      Map: pay_fild11
+      X: 150
+      Y: 150
+    AdditionalMaps:
+      - Map: pay_fild11
+
+  - Id: 33
+    Name: Moonlight_Instance
+    TimeLimit: 10800
+    IdleTimeOut: 1800
+    Enter:
+      Map: pay_dun04
+      X: 120
+      Y: 130
+    AdditionalMaps:
+      - Map: pay_dun04
+
+  # Add remaining MVP instances following the same pattern
+*/
+
+// =============================================
+// Item Database Entry for MVP Token
+// =============================================
+// Add to db/item_db.yml:
+/*
+  - Id: 7951
+    AegisName: MVP_Token
+    Name: MVP Token
+    Type: Etc
+    Buy: 20000
+    Weight: 10
+    Trade:
+      nodrop: true
+      notrade: true
+      nostorage: true
+      nocart: true
+      nomail: true
+      noauction: true
+*/

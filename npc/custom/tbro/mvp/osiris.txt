@@ -1,0 +1,295 @@
+//!rathena
+
+moc_pryd04,178,18,4	script	MVP Osiris#create_NPC	OSIRIS,{
+	.NPC_name$ = callfunc("F_BlueText", "[HâÌm nguòc MVP - Osiris]");
+	.quest_id = 65001; // Quest ID for cooldown
+
+	.@char_id = getcharid(0);
+	.@party_id = getcharid(1);
+	.@p_name$ = getpartyname(.@party_id);
+	.@acc_id = getcharid(3);
+
+	.@instance_name$ = "Osiris MVP Instance";
+	.@instance_map_name$ = "moc_pryd04";
+
+	// Required items to create instance (item_id, quantity)
+	// 10x Rotten Bandage (930), 1x Silver Ring (2611), 1x Bible (1551)
+	setarray .@required_item_list[0], 930, 10, 2611, 1, 1551, 1;
+	.@token_id = 88888; // Item ID for MVP Token
+	.@token_quantity = 10; // Quantity of MVP Tokens required
+
+	// Level check
+	if (BaseLevel < 90) {
+		mes .NPC_name$;
+		mes "Baòn câÌn phaÒi thoÒa maŞn ğiêÌu kiêòn:";
+		mes callfunc("F_RedText", "- Base Level >= 90");
+		close;
+	}
+
+	if ( instance_live_info(ILI_NAME, instance_id(IM_PARTY)) == .@instance_name$ ) {
+		switch(
+			select(
+				"- VaÌo Instance",
+				"- Thoaìt"
+			)
+		) {
+			case 1:
+				callsub L_InitNPC_Enter, .@instance_name$, .@instance_map_name$;
+			case 2:
+			default:
+				break;
+		}
+		end;
+	} else if ( instance_id(IM_PARTY) ) {
+		mes .NPC_name$;
+		mes "Baòn hiêòn ğang tham gia instance " + instance_live_info(ILI_NAME, instance_id(IM_PARTY)) + ".";
+		close;
+	} else {
+		// Quest cooldown check
+		switch( checkquest(.quest_id, PLAYTIME) ) {
+			case -1:
+				if ( instance_check_party(.@party_id) == 0 ) {
+					mes .NPC_name$;
+					mes "Taòo party võìi >= 1 ngıõÌi rôÌi quay laòi ğây.";
+					close;
+				}
+				break;
+			case 0:
+			case 1:
+				mes .NPC_name$;
+				mes "Baòn câÌn phaÒi chõÌ hêìt cooldown trıõìc khi taòo instance mõìi.";
+				close;
+			case 2:
+				mes .NPC_name$;
+				mes "ĞaŞ hêìt thõÌi gian chõÌ cooldown.";
+				mes "HaŞy noìi chuyêòn laòi võìi tôi ğêÒ taòo instance.";
+				erasequest(.quest_id);
+				close;
+		}
+	}
+
+	// Check party leader
+	if (!is_party_leader()) {
+		mes .NPC_name$;
+		mes "ChiÒ coì party leader mõìi coì thêÒ taòo instance.";
+		close;
+	}
+
+	mes .NPC_name$;
+	mes "ChaÌo baòn!";
+	mes "Muôìn thıÒ thaìch võìi MVP không?";
+	next;
+
+	switch(
+		select(
+			"- Taòo Instance duÌng vâòt phâÒm",
+			"- Taòo Instance duÌng MVP Tokens",
+			"- Thoaìt"
+		)
+	) {
+		case 1: // Create Instance
+			// Check item requirements
+			.@enough_items = 1;
+			for (.@i = 0; .@i < getarraysize(.@required_item_list); .@i += 2) {
+				if (countitem(.@required_item_list[.@i]) < .@required_item_list[.@i + 1]) {
+					.@enough_items = 0;
+					break;
+				}
+			}
+
+			if (.@enough_items == 0) {
+				mes .NPC_name$;
+				mes "Baòn câÌn phaÒi mang theo ğuÒ vâòt phâÒm ğêÒ taòo instance.";
+				for (.@i = 0; .@i < getarraysize(.@required_item_list); .@i += 2) {
+					mes "- " + countitem(.@required_item_list[.@i]) + " / " + .@required_item_list[.@i + 1] + " " + mesitemlink(.@required_item_list[.@i], false);
+				}
+				close;
+			}
+
+			mes .NPC_name$;
+			mes "Baòn câÌn phaÒi mang theo ğuÒ vâòt phâÒm ğêÒ taòo instance.";
+			for (.@i = 0; .@i < getarraysize(.@required_item_list); .@i += 2) {
+				mes "- " + countitem(.@required_item_list[.@i]) + " / " + .@required_item_list[.@i + 1] + " " + mesitemlink(.@required_item_list[.@i], false);
+			}
+
+			switch(
+				select(
+					"- Xaìc nhâòn taòo instance",
+					"- HuÒy"
+				)
+			) {
+				case 1:
+					// Remove required items
+					for (.@i = 0; .@i < getarraysize(.@required_item_list); .@i += 2) {
+						delitem .@required_item_list[.@i], .@required_item_list[.@i + 1];
+					}
+					callsub L_InitNPC_CreateInstance, .@instance_name$;
+					end;
+				case 2:
+				default:
+					end;
+			}
+
+			break;
+		case 2: // Create Instance using MVP Tokens
+			if (countitem(.@token_id) < .@token_quantity) {
+				mes .NPC_name$;
+				mes "Baòn câÌn phaÒi mang theo ğuÒ vâòt phâÒm ğêÒ taòo instance.";
+				mes "- " + countitem(.@token_id) + " / " + .@token_quantity + " " + mesitemlink(.@token_id, false);
+				close;
+			}
+
+			mes .NPC_name$;
+			mes "Baòn câÌn phaÒi mang theo ğuÒ vâòt phâÒm ğêÒ taòo instance.";
+			mes "- " + countitem(.@token_id) + " / " + .@token_quantity + " " + mesitemlink(.@token_id, false);
+
+			switch (
+				select(
+					"- Xaìc nhâòn taòo instance",
+					"- HuÒy"
+				)
+			) {
+				case 1:
+					// Remove required items
+					delitem .@token_id, .@token_quantity; // Remove 10 MVP Tokens
+					callsub L_InitNPC_CreateInstance, .@instance_name$;
+					end;
+				case 2:
+				default:
+					end;
+			}
+			break;
+		case 3:
+		default:
+			break;
+	}
+	end;
+
+L_InitNPC_CreateInstance:
+	.@instance_name$ = getarg(0);
+
+	.@instance_id = instance_create(.@instance_name$);
+	if (.@instance_id == -3) {
+		mes .NPC_name$;
+		mes "Instance ğaŞ tôÌn taòi.";
+		close;
+	} else if (.@instance_id < 0) {
+		mes .NPC_name$;
+		mes "LôŞi chıa xaìc ğiònh. Vui loÌng thıÒ laòi sau.";
+		close;
+	}
+	end;
+
+L_InitNPC_Enter:
+	.@instance_name$ = getarg(0);
+	.@instance_map_name$ = getarg(1);
+
+	switch(instance_enter(.@instance_name$)) {
+		case IE_OTHER:
+			mes .NPC_name$;
+			mes "LôŞi chıa xaìc ğiònh.";
+			close;
+		case IE_NOINSTANCE:
+			mes .NPC_name$;
+			mes "Instance vâŞn chıa ğıõòc khõÒi taòo.";
+			close;
+		case IE_NOMEMBER:
+			mes .NPC_name$;
+			mes "Chıa ğuÒ thaÌnh viên ğêÒ tham gia hoãòc lôŞi chıa xaìc ğiònh.";
+			close;
+		case IE_OK:
+			mapannounce instance_mapname(.@instance_map_name$, instance_id(IM_PARTY)), "Party: "+getpartyname(getcharid(1))+" | ğôòi viên "+strcharinfo(0)+" ğaŞ tiêìn vaÌo "+.@instance_name$+".",bc_map,"0x00ff99";
+			switch( checkquest(.quest_id) ) {
+				case -1:
+					break;
+				case 0:
+				case 1:
+				case 2:
+					erasequest .quest_id;
+					break;
+			}
+			setquest .quest_id;
+			break;
+		}
+	end;
+}
+
+moc_pryd04,180,18,4	script	Osiris#init_NPC	OSIRIS,{
+	if ( is_party_leader() ) {
+		switch(
+			select(
+				"- Bãìt ğâÌu?",
+				"- Thoaìt"
+			)
+		) {
+			case 1:
+				disablenpc instance_npcname(strnpcinfo(0));
+				enablenpc instance_npcname("#handleinstance1");
+				donpcevent instance_npcname("#handleinstance1") + "::OnEnable";
+				break;
+			case 2:
+			default:
+				break;
+		}
+	} else {
+		mes "- ChiÒ coì trıõÒng nhoìm mõìi coì thêÒ bãìt ğâÌu. -";
+		close;
+	}
+	end;
+
+OnInit:  // hide the NPC on the normal map
+	disablenpc strnpcinfo(0);
+	end;
+}
+
+moc_pryd04,0,0,0	script	#ins_moc_pryd04	-1,{
+	end;
+OnInstanceInit:
+	'origin_mapname$ = "moc_pryd04";
+	'map_name$       = instance_mapname('origin_mapname$);
+
+	disablenpc instance_npcname("MVP Osiris#create_NPC");
+	disablenpc instance_npcname("#handleinstance1");
+	disablenpc instance_npcname("mocp04-1");
+	disablenpc instance_npcname("mocp05-1");
+	disablenpc instance_npcname("mocp06-1");
+	disablenpc instance_npcname("mocp07-1");
+	end;
+}
+
+moc_pryd04,0,0,0	script	#handleinstance1	-1,{
+	end;
+OnEnable:
+	setarray .@mobs[0], 1041, 25, 1029, 50, 1191, 15, 1146, 20; // Mummy, Isis, Mimic, Matyr
+	setarray .@mvp[0], 1038, 1; // Osiris
+	// Spawn MVP and monsters
+	.@label$ = instance_npcname("#handleinstance1") + "::OnMyMobDead";
+	.@mvp_label$ = instance_npcname("#handleinstance1") + "::OnMVPDead";
+
+	// Spawn monsters from the list
+	for (.@i = 0; .@i < getarraysize(.@mobs); .@i += 2) {
+		monster 'map_name$, 0, 0, "--ja--", .@mobs[.@i], .@mobs[.@i + 1], .@label$;
+	}
+	monster 'map_name$, 178, 15, "--ja--", .@mvp[0], .@mvp[1], .@mvp_label$;
+
+	mapannounce 'map_name$, "HâÌm nguòc MVP ğaŞ bãìt ğâÌu! HaŞy tiêìn haÌnh tiêu diêòt quaìi vâòt truÌm nhanh nhâìt coì thêÒ!", bc_map, "0x00ff99";
+	end;
+OnMyMobDead:
+	end;
+OnMVPDead:
+	mapannounce 'map_name$, "Quaìi vâòt truÌm ğaŞ biò tiêu diêòt! Chuìc mıÌng caìc baòn!", bc_map, "0x00ff99";
+	killmonsterall 'map_name$;
+	mapannounce 'map_name$, "TôÒ ğôòi seŞ ğıõòc diòch chuyêÒn ra ngoaÌi sau 5 phuìt nıŞa! Vui loÌng rõÌi baÒn ğôÌ sõìm nhâìt coì thêÒ.", bc_map, "0x00ff99";
+	initnpctimer;
+	end;
+
+OnTimer30000:
+	stopnpctimer;
+	for (.@i = 5; .@i > 0; .@i--) {
+		mapannounce 'map_name$, "TôÒ ğôòi seŞ ğıõòc diòch chuyêÒn sau " + .@i + " giây!", bc_map, "0x00ff99";
+		sleep 1000;
+	}
+	mapwarp 'map_name$, 'origin_mapname$, 178, 15;
+	instance_destroy();
+	end;
+}
