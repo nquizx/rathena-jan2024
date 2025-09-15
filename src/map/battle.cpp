@@ -2616,6 +2616,7 @@ static int32 battle_range_type(struct block_list *src, struct block_list *target
 		case KN_BRANDISHSPEAR:
 		// Renewal changes to ranged physical damage
 #endif
+		case KN_BRANDISHSPEAR:
 		case SR_RAMPAGEBLASTER:
 		case BO_ACIDIFIED_ZONE_WATER_ATK:
 		case BO_ACIDIFIED_ZONE_FIRE_ATK:
@@ -4658,21 +4659,22 @@ static int32 battle_calc_attack_skill_ratio(struct Damage* wd, struct block_list
 #endif
 		case ML_BRANDISH:
 			{
-				int32 ratio = 100 + 20 * skill_lv;
+				// int32 ratio = 100 + 40 * skill_lv;
 
-				skillratio += -100 + ratio;
-				if(skill_lv > 3 && wd->miscflag == 0)
-					skillratio += ratio / 2;
-				if(skill_lv > 6 && wd->miscflag == 0)
-					skillratio += ratio / 4;
-				if(skill_lv > 9 && wd->miscflag == 0)
-					skillratio += ratio / 8;
-				if(skill_lv > 6 && wd->miscflag == 1)
-					skillratio += ratio / 2;
-				if(skill_lv > 9 && wd->miscflag == 1)
-					skillratio += ratio / 4;
-				if(skill_lv > 9 && wd->miscflag == 2)
-					skillratio += ratio / 2;
+				// skillratio += -100 + ratio;
+				// if(skill_lv > 3 && wd->miscflag == 0)
+				// 	skillratio += ratio / 2;
+				// if(skill_lv > 6 && wd->miscflag == 0)
+				// 	skillratio += ratio / 4;
+				// if(skill_lv > 9 && wd->miscflag == 0)
+				// 	skillratio += ratio / 8;
+				// if(skill_lv > 6 && wd->miscflag == 1)
+				// 	skillratio += ratio / 2;
+				// if(skill_lv > 9 && wd->miscflag == 1)
+				// 	skillratio += ratio / 4;
+				// if(skill_lv > 9 && wd->miscflag == 2)
+				// 	skillratio += ratio / 2;
+				skillratio += 300 + 45 * skill_lv;
 			}
 			break;
 		case KN_BOWLINGBASH:

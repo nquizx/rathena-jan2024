@@ -2085,9 +2085,9 @@ Body:
     ActiveInstance: 5
     Knockback: 2
     CastTime: 700
-    Duration1: 1000
+    # Duration1: 1000
     Requires:
-      SpCost: 12
+      SpCost: 20
       Weapon:
         1hSpear: true
         2hSpear: true
