@@ -4772,7 +4772,7 @@ static int32 battle_calc_attack_skill_ratio(struct Damage* wd, struct block_list
 				skillratio += 70 * skill_lv;
 			else
 #endif
-				skillratio += 35 * skill_lv;
+				skillratio += 60 + 35 * skill_lv;
 			break;
 		case AM_DEMONSTRATION:
 			skillratio += 20 * skill_lv;

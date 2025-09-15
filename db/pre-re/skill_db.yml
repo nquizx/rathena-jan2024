@@ -1392,7 +1392,7 @@ Body:
   - Id: 28
     Name: AL_HEAL
     Description: Heal
-    MaxLevel: 10
+    MaxLevel: 5
     Type: Magic
     TargetType: Support
     DamageFlags:
@@ -1421,16 +1421,16 @@ Body:
           Amount: 22
         - Level: 5
           Amount: 25
-        - Level: 6
-          Amount: 28
-        - Level: 7
-          Amount: 31
-        - Level: 8
-          Amount: 34
-        - Level: 9
-          Amount: 37
-        - Level: 10
-          Amount: 40
+        # - Level: 6
+        #   Amount: 28
+        # - Level: 7
+        #   Amount: 31
+        # - Level: 8
+        #   Amount: 34
+        # - Level: 9
+        #   Amount: 37
+        # - Level: 10
+        #   Amount: 40
   - Id: 29
     Name: AL_INCAGI
     Description: Increase AGI
