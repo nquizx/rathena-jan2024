@@ -2260,16 +2260,16 @@ Body:
     Hit: Single
     HitCount: 2
     Element: Weapon
-    SplashArea: 1
+    SplashArea: 2
     Knockback: 1
     CopyFlags:
       Skill:
         Plagiarism: true
         Reproduce: true
     CastTime: 700
-    AfterCastActDelay: 300
-    Duration1: 1000
-    Cooldown: 1000
+    # AfterCastActDelay: 100
+    # Duration1: 1000
+    # Cooldown: 1000
     Requires:
       SpCost:
         - Level: 1
